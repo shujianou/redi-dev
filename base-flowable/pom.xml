@@ -19,17 +19,26 @@
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter</artifactId>
         </dependency>
-       <!-- &lt;!&ndash;流程设计器&ndash;&gt;
+        <!--流程设计器-->
         <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-ui-modeler-rest</artifactId>
         </dependency>
 
-        &lt;!&ndash;路由配置&ndash;&gt;
+        <!--路由配置-->
         <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-ui-modeler-conf</artifactId>
-        </dependency>-->
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-modeler-logic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-modeler</artifactId>
+            <version>6.4.0</version>
+        </dependency>
         <dependency>
             <groupId>com.redimybase</groupId>
             <artifactId>base-framework</artifactId>
@@ -47,5 +56,4 @@
             <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
-
 </project>
