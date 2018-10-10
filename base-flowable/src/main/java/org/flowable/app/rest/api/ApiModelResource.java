@@ -44,9 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-/**
- *
- */
+
 @RestController
 public class ApiModelResource {
 
