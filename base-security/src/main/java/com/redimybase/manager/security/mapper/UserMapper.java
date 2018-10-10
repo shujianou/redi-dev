@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author irany
  * @since 2018-08-07
  */
-@Mapper
+//@Mapper
 public interface UserMapper extends BaseMapper<UserEntity> {
 
 }

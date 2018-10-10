@@ -1,6 +1,7 @@
 package com.redimybase.flowable.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.flowable.app.properties.FlowableModelerAppProperties;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FlowableConfig {
 
-
     @Bean
     public StandaloneProcessEngineConfiguration standaloneProcessEngineConfiguration(DruidDataSource dataSources) {
         StandaloneProcessEngineConfiguration configuration = new StandaloneProcessEngineConfiguration();
@@ -20,5 +20,10 @@ public class FlowableConfig {
         configuration.setDatabaseType("mysql");
         configuration.setDatabaseSchemaUpdate("true");
         return configuration;
+    }
+
+    @Bean
+    public FlowableModelerAppProperties flowableModelerAppProperties() {
+        return new FlowableModelerAppProperties();
     }
 }

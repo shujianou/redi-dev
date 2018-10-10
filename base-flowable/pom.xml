@@ -19,14 +19,23 @@
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter</artifactId>
         </dependency>
-       <!-- &lt;!&ndash;流程设计器&ndash;&gt;
-        <dependency>
+
+        <!--流程设计器-->
+    <!--    <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-ui-modeler-rest</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-ui-modeler-logic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-json-converter</artifactId>
         </dependency>
 
-        &lt;!&ndash;路由配置&ndash;&gt;
-        <dependency>
+        <!--路由配置-->
+       <!-- <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-ui-modeler-conf</artifactId>
         </dependency>-->

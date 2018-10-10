@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisMapperRefresh;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
@@ -16,6 +17,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Mybatis--plus配置
@@ -42,6 +46,10 @@ public class MybatisPlusConfig {
         factoryBean.setTypeAliasesPackage("com.redimybase.manager.*.mapper,com.ainspread.manager.*.mapper");
         factoryBean.setMapperLocations(mapperResources());
         factoryBean.setConfiguration(mybatisConfiguration);
+        Properties properties = new Properties();
+        properties.put("prefix", "");
+        properties.put("blobType", "BLOB");
+        factoryBean.setConfigurationProperties(properties);
 
         //加载mybatis插件
         factoryBean.setPlugins(new Interceptor[]{
@@ -55,8 +63,8 @@ public class MybatisPlusConfig {
 
     //@Bean
     public Resource[] mapperResources() throws IOException {
-        return new PathMatchingResourcePatternResolver()
-                .getResources("classpath*:com/**/mapper/xml/*Mapper.xml");
+        return ArrayUtils.addAll(new PathMatchingResourcePatternResolver()
+                .getResources("classpath*:com/**/mapper/xml/*Mapper.xml"), new PathMatchingResourcePatternResolver().getResources("META-INF/modeler-mybatis-mappings/*.xml"));
     }
 
     @Bean
