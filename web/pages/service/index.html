@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>资源管理</title>
+
+    <link href="/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css"
+          rel="stylesheet"/>
+    <link href="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/resources/plugins/zTree_v3/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="/resources/plugins/vue-message/css/message.css" />
+    <link href="/resources/css/common.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_782668_dj2oppb95k.css">
+    <link rel="stylesheet" href="/resources/plugins/codemirror/lib/codemirror.css"/>
+    <link rel="stylesheet" href="/resources/plugins/codemirror/theme/dracula.css"/>
+    <link rel="stylesheet" href="/resources/plugins/codemirror/addon/fold/foldgutter.css"/>
+    <style>
+        .bootstrap-table .table.table-no-bordered>tbody>tr>td, .bootstrap-table .table.table-no-bordered>thead>tr>th {
+            border-right: 2px solid transparent;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <!-- shell编辑 -->
+            <div class="col-sm-12">
+                <label for="shell-code" id="shell-code-click" data-toggle="collapse">shell编辑器 <font color="red">(Ctrl+S 保存;Space 缓存)</font></label>
+                <div id="shell-code-div">
+                    <input type="hidden" id="shell-id" />
+                    <textarea class="form-control" id="shell-code" name="shell-code"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div id="toolbar">
+                    <a class="waves-effect waves-button" href="javascript:;" id="add-btn"><i
+                            class="zmdi zmdi-plus"></i> 新增服务</a>
+                    <a class="waves-effect waves-button" href="javascript:;" id="delete-batch-btn"><i
+                            class="zmdi zmdi-close"></i> 删除服务</a>
+                    <a class="waves-effect waves-button" href="javascript:;" id="exec-shell-btn"><i
+                            class="iconfont icon-zhixing"></i> 立即执行shell</a>
+                </div>
+                <table id="table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新增 -->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="createDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">新增服务</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add-form">
+                    <input id="add-id" name="id" hidden/>
+                    <div class="form-group">
+                        <label for="add-name">* 服务名称</label>
+                        <input id="add-name" name="name" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-email">* 通知邮箱</label>
+                        <input id="add-email" name="noticeEmail" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-ip">* 服务地址</label>
+                        <input id="add-ip" name="appHost" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-port">* 端口</label>
+                        <input id="add-port" name="port" type="text" maxlength="5" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-retry-connection">重连次数</label>
+                        <input id="add-retry-connection" name="retryConnection" type="text" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-sort">排序</label>
+                        <input id="add-sort" name="sort" type="text" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control">
+                    </div>
+                    <div class="form-group">
+												<span style="font-size: 16px;color: #999;">依赖服务：</span>
+                        <label for="add-rely-app"></label>
+                        <select id="add-rely-app" name="relyId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+												<span style="font-size: 16px;color: #999;">所属集群：</span>
+                        <label for="add-group"></label>
+                        <select id="add-group" name="groupId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+												<span style="font-size: 16px;color: #999;">所属主机：</span>
+                        <label for="add-host"></label>
+                        <select id="add-host" name="hostId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+												<span style="font-size: 16px;color: #999;">状态：</span>
+                        <label for="add-status"></label>
+                        <select id="add-status" name="status">
+                            <option value="1">状态:启用</option>
+                            <option value="0" selected>状态:禁用</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: none;">
+                        <label for="add-shell"></label>
+                        <textarea class="form-control" name="command" id="add-shell" placeholder="重启shell"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="checkbox" value="0" id="continue-add-chk" /> 继续添加
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="add-save-btn">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<script src="/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/resources/plugins/select2/js/select2.min.js"></script>
+<script src="/resources/plugins/zTree_v3/js/jquery.ztree.core.min.js"></script>
+<script src="/resources/plugins/zTree_v3/js/jquery.ztree.excheck.min.js"></script>
+<script src="/resources/plugins/zTree_v3/js/jquery.ztree.exedit.min.js"></script>
+<script src="/resources/plugins/vue-message/message.min.js"></script>
+
+<script src="/resources/plugins/codemirror/lib/codemirror.js"></script>
+<script src="/resources/plugins/codemirror/mode/shell/shell.js"></script>
+<script src="/resources/plugins/codemirror/addon/fold/foldcode.js"></script>
+<script src="/resources/plugins/codemirror/addon/fold/foldgutter.js"></script>
+<script src="/resources/plugins/codemirror/addon/fold/brace-fold.js"></script>
+<script src="/resources/plugins/codemirror/addon/fold/comment-fold.js"></script>
+
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/service/index.js"></script>
+</body>
+</html>

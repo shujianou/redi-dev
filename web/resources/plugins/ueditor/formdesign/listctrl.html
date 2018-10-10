@@ -1,0 +1,1011 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>列表控件属性</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <meta name="generator" content="www.leipi.org" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="leipi.style.css">
+    <link rel="stylesheet" href="../../../plugins/bootstrap-select/css/bootstrap-select.min.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <!--
+    <script type="text/javascript" src="./jquery-1.7.2.min.js"></script>
+    -->
+    <script type="text/javascript" src="../../../js/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="css/form.design.css">
+    <script type="text/javascript" src="../../../js/utils.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="../../../plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
+    <style type="text/css">
+        .table td {
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+    </style>
+<script type="text/javascript">
+var rootPath = $("#root-path",parent.document).val();
+function createElement(type, name)
+{     
+    var element = null;     
+    try {        
+        element = document.createElement('<'+type+' name="'+name+'">');     
+    } catch (e) {}   
+    if(element==null) {     
+        element = document.createElement(type);     
+        element.name = name;     
+    } 
+    return element;
+}
+</script>
+ 
+</head>
+<body>
+<div class="content">
+ <table class="table table-striped" style="margin-bottom: 0;">
+    <thead>
+        <tr>
+            <th><span>控件名称 </span><span class="label label-important">*</span></th>
+            <td>
+                <input id="orgname" placeholder="必填项" type="text" class="require" value="列表控件"/>
+            </td>
+            <th><span>绑定表</span></th>
+            <td>
+		      <select id="bind_table" class="require">
+		          <option class="" value="">无</option>
+		          <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+		       </select>
+		       <input id="orgwidth" type="hidden" value="100%" />
+            </td>
+            
+            <th><span>表格宽度</span></th>
+            <td>
+		       <input id="tablewidth" type="text" value="100%" />
+            </td>
+        </tr>
+        <tr>
+            <th style="vertical-align: top"><span>填充的数据源</span></th>
+            <td colspan="3">
+                <input id="fill-url" type="text" style="width: 95%"  placeholder="数据源"/>
+            </td>
+            <th style="vertical-align: top"><span>关联字段</span></th>
+            <td>
+                <select id="fill-relate-field" style="width: 92%" class="show-tick form-control" multiple>
+                </select>
+                <p class="help-block" style="margin-bottom: 0;">传递的参数格式为：value=${1}&name=${2}，其中1,2为关联字段的顺序</p>
+            </td>
+        </tr>
+    </thead>
+   </table>
+
+    <div style="width:1000px;height: 300px; overflow: auto">
+      <table class="table table-striped table-bordered table-condensed" id="tbl" style="width: 1400px;">
+       <thead>
+          <tr>
+            <th><span>序号</span> </th>
+            <th> <span>表头</span> </th>
+            <th> <span>绑定字段</span> </th>
+            <th> <span>类型</span> </th>
+            <th><span>插件</span></th>
+            <th><span>数据来源</span></th>
+            <th><span>默认值</span></th>
+            <th> <span>单位</span> </th>
+            <th>标题备注</th>
+            <th>必填</th>
+            <th>隐藏</th>
+            <th> <span>合计</span><a id="showCountTips" title="在该列的底部显示该列的合计数值，数据类型只允许数值类型" rel="popover"><i class="icon-info-sign"></i></a> </th>
+            <th><span>合计绑定表</span></th>
+            <th><span>合计绑定字段</span></th>
+              <th>验证表达式</th>
+              <th>验证提示信息</th>
+           </tr>
+        </thead>
+         <tbody id="tbl1">
+                    <tr>
+                        <td><span class="badge">1</span></td>
+                        <td> <input id="item_1" type="text" class="input-mini" /></td>
+                        <td>
+                          <select id="bind_table_field_1" class="bind_table_field require input-m-small">
+                          	   <option class="" value="">无</option>
+				               <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+				          </select>
+                        </td>
+                        <td>
+                            <select id="coltype_1" class="input-m-small">
+                                <option value="text">单行输入框</option>
+                                <option value="textarea">多行输入框</option>
+                                <option value="int">数值</option>
+                            </select>
+                        </td>
+                         <td>
+                           <select id="plugin_type_1" class="input-m-small pluin_type">
+                                  <option value="">无</option>
+					              <option value="cnoj-input-tree">树形</option>
+					              <option value="cnoj-auto-complete">自动完成</option>
+					              <option value="cnoj-auto-complete-relate">自动完成关联</option>
+					              <option value="cnoj-input-select">下拉框</option>
+					              <option value="cnoj-input-select-relate">下拉框关联</option>
+					              <option value="cnoj-datetime">日期时间</option>
+					              <option value="cnoj-date">日期</option>
+					              <option value="cnoj-time">时间</option>
+                            </select>
+                         </td>
+                        <td>
+                            <input id="plugin_uri_1"  type="text" class="input-medium plugin_uri"/>
+                        </td>
+                        <td ><input id="colvalue_1" type="text" class="input-mini"/></td>
+                        <td > <label><input type="text" class="input-m-mini" id="unit_1" value=""> </label> </td>
+                        <td><input id="remarks_1" type="text" class="input-mini"/></td>
+                        <td style="text-align: center;">
+                        	<div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_require_1" value="1">
+							  </label>
+							</div>
+                        </td>
+                        <td style="text-align: center;">
+                        	<div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_hide_1" value="1">
+							  </label>
+							</div>
+                        </td>
+                        <td style="text-align: center;"> <label> <input type="checkbox" onclick="clickCSum(this)" id="sum_1" class="csum" value="1"> </label> </td>
+                        <td>
+                            <select id="csum_bind_table_1" class="input-m-small">
+				                  <option class="" value="">无</option>
+				                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+				           </select>
+                        </td>
+                        <td>
+                            <select id="csum_bind_table_field_1" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td title="具体请看验证表达式说明">
+                            <input id="validate_expr_1"  type="text" class="input-medium validate_expr" placeholder="验证表达式" />
+                        </td>
+                        <td title="验证失败时的提示信息">
+                            <input id="validate_expr_msg_1"  type="text" class="input-medium validate_expr_msg" placeholder="验证失败时的提示信息" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="badge">2</span></td>
+                        <td > <input id="item_2" type="text" class="input-mini"> </td>
+                        <td>
+                          <select id="bind_table_field_2" class="bind_table_field require input-m-small">
+                              <option class="" value="">无</option>
+				               <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+				          </select>
+                        </td>
+                        <td >
+                            <select id="coltype_2" class="input-m-small">
+                                <option value="text">单行输入框</option>
+                                <option value="textarea">多行输入框</option>
+                                <option value="int">数值</option>
+                            </select>
+                        </td>
+                        <td >
+                           <select id="plugin_type_2" class="input-m-small pluin_type">
+                                  <option value="">无</option>
+					              <option value="cnoj-input-tree">树形</option>
+					              <option value="cnoj-auto-complete">自动完成</option>
+					              <option value="cnoj-auto-complete-relate">自动完成关联</option>
+					              <option value="cnoj-input-select">下拉框</option>
+					              <option value="cnoj-input-select-relate">下拉框关联</option>
+					              <option value="cnoj-datetime">日期时间</option>
+					              <option value="cnoj-date">日期</option>
+					              <option value="cnoj-time">时间</option>
+                            </select>
+                         </td>
+                        <td >
+                            <input id="plugin_uri_2"  type="text" class="input-medium plugin_uri"/>
+                        </td>
+                        <td ><input id="colvalue_2"  type="text" class="input-mini"/></td>
+                        <td > <label><input type="text" class="input-m-mini" id="unit_2" value=""> </label> </td>
+                        <td><input id="remarks_2" type="text" class="input-mini"/></td>
+                        <td style="text-align: center;">
+                          <div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_require_2" value="1">
+							  </label>
+							</div>
+                        </td>
+                        <td style="text-align: center;">
+                        	<div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_hide_2" value="1">
+							  </label>
+							</div>
+                        </td>
+                        <td style="text-align: center;"> <label> <input type="checkbox" onclick="clickCSum(this)" id="sum_2" class="csum" value="2"> </label> </td>
+                        <td>
+                            <select id="csum_bind_table_2" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td>
+                            <select id="csum_bind_table_field_2" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td title="具体请看验证表达式说明">
+                            <input id="validate_expr_2"  type="text" class="input-medium validate_expr" placeholder="验证表达式" />
+                        </td>
+                        <td title="验证失败时的提示信息">
+                            <input id="validate_expr_msg_2"  type="text" class="input-medium validate_expr_msg" placeholder="验证失败时的提示信息" />
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="badge">3</span></td>
+                        <td > <input id="item_3" type="text" class="input-mini"> </td>
+                        <td>
+                          <select id="bind_table_field_3" class="bind_table_field require input-m-small">
+                               <option class="" value="">无</option>
+				               <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+				          </select>
+                        </td>
+                        <td >
+                            <select id="coltype_3" class="input-m-small">
+                                <option value="text">单行输入框</option>
+                                <option value="textarea">多行输入框</option>
+                                <option value="int">数值</option>
+                            </select>
+                        </td>
+                       <td >
+                           <select id="plugin_type_3" class="input-m-small pluin_type">
+                                  <option value="">无</option>
+					              <option value="cnoj-input-tree">树形</option>
+					              <option value="cnoj-auto-complete">自动完成</option>
+					              <option value="cnoj-auto-complete-relate">自动完成关联</option>
+					              <option value="cnoj-input-select">下拉框</option>
+					              <option value="cnoj-input-select-relate">下拉框关联</option>
+					              <option value="cnoj-datetime">日期时间</option>
+					              <option value="cnoj-date">日期</option>
+					              <option value="cnoj-time">时间</option>
+                            </select>
+                         </td>
+                        <td >
+                            <input id="plugin_uri_3"  type="text" class="input-medium plugin_uri"/>
+                        </td>
+                        <td ><input id="colvalue_3"  type="text" class="input-mini"/></td>
+                        <td > <label><input type="text" class="input-m-mini" id="unit_3" value=""> </label> </td>
+                        <td><input id="remarks_3" type="text" class="input-mini"/></td>
+                        <td style="text-align: center;"> 
+                           <div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_require_3" value="1">
+							  </label>
+							</div>
+						</td>
+						<td style="text-align: center;">
+                        	<div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_hide_3" value="1">
+							  </label>
+							</div>
+                        </td>
+                        <td style="text-align: center;"> <label> <input type="checkbox" onclick="clickCSum(this)" id="sum_3" class="csum" value="3"> </label> </td>
+                        <td>
+                            <select id="csum_bind_table_3" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td>
+                            <select id="csum_bind_table_field_3" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td title="具体请看验证表达式说明">
+                            <input id="validate_expr_3"  type="text" class="input-medium validate_expr" placeholder="验证表达式" />
+                        </td>
+                        <td title="验证失败时的提示信息">
+                            <input id="validate_expr_msg_3"  type="text" class="input-medium validate_expr_msg" placeholder="验证失败时的提示信息" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">4</span></td>
+                        <td > <input id="item_4" type="text" class="input-mini"> </td>
+                        <td>
+                          <select id="bind_table_field_4" class="bind_table_field require input-m-small">
+                               <option class="" value="">无</option>
+				               <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+				          </select>
+                        </td>
+                        <td >
+                            <select id="coltype_4" class="input-m-small">
+                                <option value="text">单行输入框</option>
+                                <option value="textarea">多行输入框</option>
+                                <option value="int">数值</option>
+                            </select>
+                        </td>
+                        <td >
+                           <select id="plugin_type_4" class="input-m-small pluin_type">
+                                  <option value="">无</option>
+					              <option value="cnoj-input-tree">树形</option>
+					              <option value="cnoj-auto-complete">自动完成</option>
+					              <option value="cnoj-auto-complete-relate">自动完成关联</option>
+					              <option value="cnoj-input-select">下拉框</option>
+					              <option value="cnoj-input-select-relate">下拉框关联</option>
+					              <option value="cnoj-datetime">日期时间</option>
+					              <option value="cnoj-date">日期</option>
+					              <option value="cnoj-time">时间</option>
+                            </select>
+                         </td>
+                        <td >
+                            <input id="plugin_uri_4"  type="text" class="input-medium plugin_uri"/>
+                        </td>
+                        <td ><input id="colvalue_4"  type="text" class="input-mini"/></td>  
+                        <td > <label><input type="text" class="input-m-mini" onclick="clickCSum(this)" id="unit_4" value=""> </label> </td>
+                        <td><input id="remarks_4" type="text" class="input-mini"/></td>
+                        <td style="text-align: center;"> 
+                           <div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_require_4" value="1">
+							  </label>
+							</div>
+						</td>
+						<td style="text-align: center;">
+                        	<div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_hide_4" value="1">
+							  </label>
+							</div>
+                        </td>
+                        <td style="text-align: center;"> <label> <input type="checkbox" onclick="clickCSum(this)" id="sum_4" class="csum" value="4"> </label> </td>
+                        <td>
+                            <select id="csum_bind_table_4" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td>
+                            <select id="csum_bind_table_field_4" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td title="具体请看验证表达式说明">
+                            <input id="validate_expr_4"  type="text" class="input-medium validate_expr" placeholder="验证表达式" />
+                        </td>
+                        <td title="验证失败时的提示信息">
+                            <input id="validate_expr_msg_4"  type="text" class="input-medium validate_expr_msg" placeholder="验证失败时的提示信息" />
+                        </td>
+                    </tr>
+                    <tr class="row-clone">
+                        <td><span class="badge">5</span></td>
+                        <td > <input id="item_5" type="text" class="input-mini"> </td>
+                        <td>
+                          <select id="bind_table_field_5" class="bind_table_field require input-m-small">
+                           	   <option class="" value="">无</option>
+				               <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+				          </select>
+                        </td>
+                        <td >
+                            <select id="coltype_5" class="input-m-small">
+                                <option value="text">单行输入框</option>
+                                <option value="textarea">多行输入框</option>
+                                <option value="int">数值</option>
+                            </select>
+                        </td>
+                        <td >
+                           <select id="plugin_type_5" class="input-m-small pluin_type">
+                                  <option value="">无</option>
+					              <option value="cnoj-input-tree">树形</option>
+					              <option value="cnoj-auto-complete">自动完成</option>
+					              <option value="cnoj-auto-complete-relate">自动完成关联</option>
+					              <option value="cnoj-input-select">下拉框</option>
+					              <option value="cnoj-input-select-relate">下拉框关联</option>
+					              <option value="cnoj-datetime">日期时间</option>
+					              <option value="cnoj-date">日期</option>
+					              <option value="cnoj-time">时间</option>
+                            </select>
+                         </td>
+                        <td >
+                            <input id="plugin_uri_5"  type="text" class="input-medium plugin_uri"/>
+                        </td>
+                        <td ><input id="colvalue_5"  type="text" class="input-mini"/></td>
+                        <td > <label><input type="text" class="input-m-mini" id="unit_5" value=""> </label> </td>
+                        <td><input id="remarks_5" type="text" class="input-mini"/></td>
+                        <td style="text-align: center;"> 
+                           <div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_require_5" value="1">
+							  </label>
+							</div>
+						</td>
+						<td style="text-align: center;">
+                        	<div class="checkbox">
+							  <label>
+							    <input type="checkbox" id="field_hide_5" value="1">
+							  </label>
+							</div>
+                        </td>
+                        <td style="text-align: center;"> <label> <input type="checkbox" onclick="clickCSum(this)" id="sum_5" class="csum" value="5"> </label> </td>
+                        <td>
+                            <select id="csum_bind_table_5" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td>
+                            <select id="csum_bind_table_field_5" class="input-m-small">
+                                  <option class="" value="">无</option>
+                                  <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                           </select>
+                        </td>
+                        <td title="具体请看验证表达式说明">
+                            <input id="validate_expr_5"  type="text" class="input-medium validate_expr" placeholder="验证表达式" />
+                        </td>
+                        <td title="验证失败时的提示信息">
+                            <input id="validate_expr_msg_5"  type="text" class="input-medium validate_expr_msg" placeholder="验证失败时的提示信息" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <div style="padding-left: 8px;padding-top: 5px;">
+        <form class="form-inline">
+            <div class="form-group" style="width: 120px">
+                <label for="sum_row_name">行统计--标题：</label>
+                <input type="text" class="form-control" style="width: 95%" id="sum_row_name" placeholder="请输入标题" />
+            </div>
+            <div class="form-group" style="width: 120px;">
+                <label for="bind_sum_row_field">行统计--绑定字段：</label>
+                <select id="bind_sum_row_field" style="width: 100%" class="form-control">
+                    <option class="" value="">无</option>
+                    <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                </select>
+            </div>
+            <div class="form-group" style="width: 180px">
+                <label for="sum-relate-field">统计关联字段：</label>
+                <select id="sum-relate-field" style="width: 92%" class="show-tick form-control" multiple>
+                </select>
+            </div>
+            <div class="form-group" style="width: 180px">
+                <label for="sum_row_expr">表达式<span style="font-weight: normal">(统计关联字段四则运算)</span>：</label>
+                <input type="text" class="form-control" style="width: 98%" id="sum_row_expr" title="请输入表达式" placeholder="如：${2}-${1}或${1}+${2}"  />
+            </div>
+            <div class="form-group" style="width: 150px;padding-left: 15px;">
+                <label for="row_sum_bind_table">行统计合计--绑定表：</label>
+                <select id="row_sum_bind_table" class="form-control" style="width: 150px;">
+                    <option class="" value="">无</option>
+                    <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                </select>
+            </div>
+            <div class="form-group" style="width: 150px">
+                <label for="row_sum_bind_table_field">行统计合计--绑定表字段：</label>
+                <select id="row_sum_bind_table_field" class="form-control" style="width: 150px;">
+                    <option class="" value="">无</option>
+                    <option class="cnoj-dyn-opt" value="">正在加载数据</option>
+                </select>
+            </div>
+
+        </form>
+        <div style="padding-top: 8px;"><h4 style="display: inline-block">备注：</h4>1.验证表达式说明：如：表达式为：${U123}<${this}；其中${U123}表示表单字段名称为U123的值；${this}表示为当前输入框的值</div>
+    </div>
+    <div class="text-center" style="margin-top: 5px;">
+        <button class="btn btn-primary" id="add-row" type="button">添加一行</button>
+    </div>
+        <!--div class="alert alert-danger">提示：</div-->
+</div>
+<script type="text/javascript">
+var oNode = null,thePlugins = 'listctrl';
+var rows_count = 5;
+var defaultRows = rows_count;
+var adefaultDatatype = ['text','textarea','int','calc'];
+var tableDefValue = null,fieldDefValue = null;
+
+function addTr(substr,replacement) {
+	var tr = $(".row-clone").clone(true);
+	tr.removeClass("row-clone");
+	var regex = '/_'+substr+'/g';
+	$(tr).find(".badge").html(replacement);
+	$(tr).find(".csum").val(replacement);
+	tr.html(tr.html().replace(eval(regex),"_"+replacement));
+	tr.appendTo("#tbl1");
+}
+
+window.onload = function() {
+    var gFillUrl = '';
+    var gFillRelateField = '';
+    var gSumRowBindDefValue = '';
+    var gSumRowRelateField = '';
+    var gSumRowName = '';
+    var gSumRowExpr = '';
+    //弹出窗口初始化函数，这里主要是判断是编辑下拉列表还是新增
+    if( UE.plugins[thePlugins].editdom ){
+        oNode = UE.plugins[thePlugins].editdom;
+        var gWidth=oNode.getAttribute('orgwidth');
+        gFillUrl = oNode.getAttribute('fill_url');
+        gFillRelateField = oNode.getAttribute('fill_relate_field');
+        gSumRowBindDefValue = oNode.getAttribute('bind_sum_row_field');
+        gSumRowRelateField = oNode.getAttribute('sum_relate_field');
+        gSumRowName = oNode.getAttribute('sum_row_name');
+        gSumRowExpr = oNode.getAttribute('sum_row_expr');
+        var gRowSumBindTable = oNode.getAttribute('row_sum_bind_table');
+        var gRowSumBindTableField = oNode.getAttribute('row_sum_bind_table_field');
+
+
+        var gTitle = oNode.getAttribute('orgtitle'),
+                gColType = oNode.getAttribute('orgcoltype'),
+                gUnit = oNode.getAttribute('orgunit'),
+                gSum = oNode.getAttribute('orgsum'),
+                gPluginType = oNode.getAttribute('plugintype'),
+                gPluginUri = oNode.getAttribute('pluginuri'),
+                gColValue = oNode.getAttribute('orgcolvalue'),
+                gBindField = oNode.getAttribute('bind_table_field'),
+                gFieldRequire = oNode.getAttribute('fieldrequire'),
+                gRemarks = oNode.getAttribute('remarks'),
+                gFieldHide = oNode.getAttribute('fieldhide'),
+                gSumBindTable = oNode.getAttribute('csum_bind_table'),
+                gSumBindTableField = oNode.getAttribute('csum_bind_table_field'),
+                gValidateExpr = oNode.getAttribute('validate_expr'),
+                gValidateExprMsg = oNode.getAttribute('validate_expr_msg');
+                
+        var aTitle = gTitle.split('`'),
+                aColType = gColType ? gColType.split('`') : null,
+                aColValue = gColValue ? gColValue.split('`') : null,
+                aBindField = gBindField?gBindField.split('`') : null,
+                aUnit = gUnit ? gUnit.split('`') : null,
+                aSum = gSum ? gSum.split('`') : null,
+                aSumBindTable = gSumBindTable ? gSumBindTable.split('`') : null,
+                aSumBindTableField = gSumBindTableField ? gSumBindTableField.split('`') : null,
+                aValidateExpr = gValidateExpr ? gValidateExpr.split('`') : null,
+                aValidateExprMsg = gValidateExprMsg ? gValidateExprMsg.split('`') : null;
+                
+        gPluginType = gPluginType ? gPluginType.split('`') : null;
+        gPluginUri = gPluginUri ? gPluginUri.split('`')  :null;
+        gFieldRequire = gFieldRequire ? gFieldRequire.split('`') : null;
+        gFieldHide = gFieldHide ? gFieldHide.split('`') : null;
+        if(null != gRemarks) 
+            gRemarks = gRemarks ? gRemarks.split('`') : null;
+               
+        var gTableWidth =  oNode.getAttribute('tablewidth');
+        var gBindTable = oNode.getAttribute('bind_table');
+        tableDefValue = gBindTable;
+        fieldDefValue = aBindField;
+        if(aTitle.length>defaultRows) {
+        	for(var i=defaultRows;i<aTitle.length;i++) {
+        		addTr(defaultRows,i+1);
+        	}
+        	rows_count = aTitle.length;
+        }
+        $G('orgname').value = oNode.getAttribute('title');
+        $G('orgwidth').value = gWidth;
+        $G('tablewidth').value = gTableWidth;
+        for ( var i = 0;i < aTitle.length; i++ ) {
+            var sItem = 'item_' + (i + 1),
+            sColtype = 'coltype_' + (i + 1),
+            sUnit = 'unit_' + (i + 1),
+            sNum = 'sum_' + (i + 1),
+            sPluginType = 'plugin_type_'+(i+1),
+            sPluginUri = 'plugin_uri_'+(i+1),
+            gBindField = 'bind_table_field_'+(i+1),
+            sFieldRequire = 'field_require_'+(i+1),
+            sFieldHide = 'field_hide_'+(i+1),
+            sColValue = 'colvalue_' + (i + 1),
+            sRemark = 'remarks_'+(i+1),
+            sValidateExpr = 'validate_expr_' + (i + 1),
+            sValidateExprMsg = 'validate_expr_msg_' + (i +1);
+            
+            $G(sItem).value = aTitle[i];
+            if(null != gPluginType && typeof(gPluginType[i]) !== 'undefined') {
+            	$G(sPluginType).value = gPluginType[i];
+            }
+            if(null != gPluginUri && typeof(gPluginUri[i]) !== 'undefined') {
+            	 $G(sPluginUri).value = gPluginUri[i];
+            }
+            if(null != gFieldRequire && typeof(gFieldRequire[i]) !== 'undefined') {
+               $G(sFieldRequire).checked = (gFieldRequire[i] == 1 ? true : false);
+            }
+            if(null != gFieldHide && typeof(gFieldHide[i]) !== 'undefined') {
+               $G(sFieldHide).checked = (gFieldHide[i] == 1 ? true : false);
+            }
+            if(null != aUnit) {
+                $G(sUnit).value = aUnit[i];
+            }
+            if ( gSum ) {
+                $G(sNum).checked = aSum[i] == 1 ? true : false;
+                if(aSum[i] == 1) {
+                    loadCSumTable(aSumBindTable[i], aSumBindTableField[i], i+1);
+                }
+            }
+            
+            if ( gColType ) {
+                $('#' + sColtype).val(aColType[i]);
+            }
+            if ( gColValue ) {
+                if($.inArray(aColType[i],adefaultDatatype) !== -1){
+                    $G(sColValue).value = aColValue[i];
+                }
+            }
+            $G(gBindField).value = aBindField[i];
+            if(null != gRemarks && typeof(gRemarks[i]) !== 'undefined') {
+                $G(sRemark).value = gRemarks[i];
+            }
+            if(aValidateExpr && aValidateExpr[i]) {
+                $G(sValidateExpr).value = aValidateExpr[i];
+            }
+            if(gValidateExprMsg && gValidateExprMsg[i]) {
+                $G(sValidateExprMsg).value = aValidateExprMsg[i];
+            }
+        }
+    }
+    if(utils.isNotEmpty(gSumRowName)) {
+        $G('sum_row_name').value = gSumRowName;
+    }
+    if(utils.isNotEmpty(gSumRowExpr)) {
+        $G('sum_row_expr').value = gSumRowExpr;
+    }
+
+    if(utils.isNotEmpty(gRowSumBindTable)) {
+        $G('row_sum_bind_table').value = gRowSumBindTable;
+    }
+    if(utils.isNotEmpty(gRowSumBindTableField)) {
+        $G('row_sum_bind_table_field').value = gRowSumBindTableField;
+    }
+
+    //加载列表绑定表列表
+    $.get(rootPath+'/form/table/item.json',function(data){
+        var output = data;//$.parseJSON(data.output);
+        if(output.result=='1') {
+            var datas = output.datas;
+            if (datas.length > 0) {
+                utils.selectDataItem("#bind_table", datas,tableDefValue,function(val) {
+                    loadItemDatas(fieldDefValue,val, gSumRowBindDefValue);
+                    if(utils.isNotEmpty(gSumRowRelateField)) {
+                        $("#sum-relate-field").selectpicker('val', gSumRowRelateField.split(','));
+                    }
+                });
+                $("#bind_table").change(function(){
+                    loadItemDatas(fieldDefValue,$(this).val(), gSumRowBindDefValue);
+                    if(utils.isNotEmpty(gSumRowRelateField)) {
+                        $("#sum-relate-field").selectpicker('val', gSumRowRelateField.split(','));
+                    }
+                });
+
+                utils.selectDataItem("#row_sum_bind_table", datas,gRowSumBindTable,function(val) {
+                    loadItemDatas(gRowSumBindTableField, val, gRowSumBindTableField, 'row_sum');
+                });
+                $("#row_sum_bind_table").change(function() {
+                    loadItemDatas(gRowSumBindTableField, $(this).val(), gRowSumBindTableField, 'row_sum');
+                });
+            }
+        }
+    });
+
+
+    
+    $("#add-row").unbind('click');
+    $("#add-row").click(function(){
+    	rows_count++;
+    	addTr(defaultRows, rows_count);
+    });
+
+    handleRelateFiled();
+    $G('fill-url').value = gFillUrl;
+    if(utils.isNotEmpty(gFillRelateField))
+        $("#fill-relate-field").selectpicker('val', gFillRelateField.split(','));
+    //$G('fill-relate-field').value = gFillRelateField;
+}
+
+/**
+ * 点击合计时执行
+ */
+function clickCSum(obj) {
+    //合计，强制选择 int
+    //$(".csum").click(function(){
+        var i = $(obj).val();
+        if($(obj).prop("checked")) {
+            $("#coltype_"+ i).val('int');
+            $("#field_hide_"+i).prop('checked', false);
+            //加载合计字段要绑定的表的列表
+            loadCSumTable('','', i);
+        } else {
+           $("#csum_bind_table_"+i+" .cnoj-dyn-opt").remove();
+           $("#csum_bind_table_field_"+i+" .cnoj-dyn-opt").remove();
+        }
+    //});
+}
+
+/**
+ * 加载合计对应的绑定表及绑定字段
+ */
+function loadCSumTable(tableDefValue, fieldDefValue, index) {
+    utils.selectItem("#csum_bind_table_"+index,rootPath+'/form/table/item.json',tableDefValue,function(val) {
+        loadCSumFields(fieldDefValue, val, index);
+    });
+    $("#csum_bind_table_"+index).change(function(){
+        loadCSumFields(fieldDefValue,$(this).val(), index);
+    });
+}
+
+/**
+ * 加载字段列表
+ */
+function loadItemDatas(fieldDefValue,val, sumRowDefValue, flag) {
+	var defValue = null;
+	var datas = null;
+	$.ajax({
+		url:rootPath+'/form/table/fields.json?id='+val,
+		type:'GET',
+		async:false,
+		dataType:'json',
+		success:function(data){
+			var output = data;
+			if(output.result=='1') {
+				datas = output.datas;
+			}
+		}
+	});
+	if(flag == 'row_sum') {
+        utils.selectDataItem("#row_sum_bind_table_field", datas, sumRowDefValue, null);
+    } else {
+        for(var i=0;i<rows_count;i++) {
+            if(null != fieldDefValue && fieldDefValue.length>0 && i<fieldDefValue.length) {
+                defValue = fieldDefValue[i];
+            }
+            utils.selectDataItem("#bind_table_field_"+(i+1), datas, defValue, null);
+        }
+        utils.selectDataItem("#bind_sum_row_field", datas, sumRowDefValue, null);
+        handleSumRowRelateFiled(datas);
+    }
+
+}
+
+/**
+ * 加载合计字段要绑定的字段列表
+ */
+function loadCSumFields(fieldDefValue,val, i) {
+    var datas = null;
+    $.ajax({
+        url:rootPath+'/form/table/fields.json?id='+val,
+        type:'GET',
+        async:false,
+        dataType:'json',
+        success:function(data){
+            var output = data;
+            if(output.result=='1') {
+                datas = output.datas;
+            }
+        }
+    });
+    utils.selectDataItem("#csum_bind_table_field_"+i, datas, fieldDefValue, null);
+}
+
+dialog.oncancel = function () {
+if( UE.plugins[thePlugins].editdom ) {
+    delete UE.plugins[thePlugins].editdom;
+}
+};
+dialog.onok = function (){
+    var gName=$G('orgname').value.replace(/\"/g,"&quot;"),gWidth=$G('orgwidth').value;
+    var gTableWidth = $G('tablewidth').value;
+    var gBindTable = $G('bind_table').value;
+    var gFillUrl = $G('fill-url').value;
+    var gFillRelateField = $('#fill-relate-field').val();//$G('fill-relate-field').value;
+
+    var gSumRowBindDefValue = $G('bind_sum_row_field').value;
+    var gSumRowRelateField = $('#sum-relate-field').val();
+    var gSumRowName = $G('sum_row_name').value;
+    var gSumRowExpr = $G('sum_row_expr').value;
+    var gRowSumBindTableField = $G('row_sum_bind_table_field').value;
+    var gRowSumBindTable = $G('row_sum_bind_table').value;
+
+    if(utils.isNotEmpty(gFillRelateField)) {
+        gFillRelateField = gFillRelateField.join(',');
+    }
+    if( gName == '') {
+        alert('控件名称不能为空');
+        $G('orgname').focus();
+        return false;
+    }
+    var gTitle = '',gColType = '' ,gUnitValue='' ,gSum = '' ,gColValue = '' ,gBindField='',
+    gPluginType = '',gPluginUri = '',nCount = 0,gFieldRequire = '',gFieldHide = '', gRemarks='',
+    gCSumBindTable = '', gCSumBindTableField = '', gValidateExpr = '',gValidateExprMsg = '';
+    for (var i = 1;i <= rows_count; i ++ ) {
+        var oItem  = $G( "item_" + i ) ,
+        oSum = $G( 'sum_'+i ) ,  oUnit = $G( 'unit_' + i),
+        oPluginType = $G('plugin_type_'+i),
+        oPluginUri = $G('plugin_uri_'+i),
+        oColType = $G('coltype_' + i) ,
+        oFieldRequire = $G('field_require_'+i),
+        oFieldHide = $G('field_hide_'+i),
+        oColValue = $G('colvalue_' + i) ,
+        oBindField=$G('bind_table_field_'+i),
+        oCSumBindTable = $G('csum_bind_table_'+i),
+        oCSumBindTableField = $G('csum_bind_table_field_'+i),
+        oValidateExpr = $G('validate_expr_'+i),
+        oValidateExprMsg = $G('validate_expr_msg_'+i);
+        var oRemarks = $G('remarks_'+i);
+        if ( oItem.value != '') {
+            if(gTitle.indexOf(oItem.value+ '`') !== -1 ) {
+                continue;//重复
+            }
+            gTitle += oItem.value + '`'; //表头
+            nCount ++ ;
+            if ( oSum.checked ) { //合计
+                gSum += '1`';
+            } else {
+                gSum += '0`';
+            }
+            gColType += oColType.value + '`';
+            gColValue += oColValue.value + '`';
+            gUnitValue += oUnit.value + '`';
+            gBindField += oBindField.value+'`';
+            gPluginType += oPluginType.value+'`';
+            gPluginUri += oPluginUri.value+'`';
+            gRemarks += oRemarks.value + '`';
+            gCSumBindTable += oCSumBindTable.value + '`';
+            gCSumBindTableField += oCSumBindTableField.value + '`';
+            gValidateExpr += oValidateExpr.value + '`';
+            gValidateExprMsg += oValidateExprMsg.value + '`';
+            if(oFieldRequire.checked) {
+            	gFieldRequire += '1`';
+            } else {
+            	gFieldRequire += '0`';
+            }
+            if(oFieldHide.checked) {
+            	gFieldHide += '1`';
+            } else {
+            	gFieldHide += '0`';
+            }
+            
+        }//end if
+    }//end for
+    gTitle = gTitle.substring(0, gTitle.length-1);
+    gColType = gColType.substring(0, gColType.length-1);
+    gColValue = gColValue.substring(0, gColValue.length-1);
+    
+    gUnitValue = gUnitValue.substring(0, gUnitValue.length-1);
+    gSum = gSum.substring(0, gSum.length - 1);
+    
+    gBindField = gBindField.substring(0, gBindField.length-1);
+    gPluginType = gPluginType.substring(0, gPluginType.length-1);
+    gPluginUri = gPluginUri.substring(0, gPluginUri.length-1);
+    gFieldRequire = gFieldRequire.substring(0, gFieldRequire.length-1);
+    gFieldHide = gFieldHide.substring(0, gFieldHide.length-1);
+    gCSumBindTable = gCSumBindTable.substring(0, gCSumBindTable.length-1);
+    gCSumBindTableField = gCSumBindTableField.substring(0, gCSumBindTableField.length-1);
+    gValidateExpr = gValidateExpr.substring(0, gValidateExpr.length - 1);
+    gValidateExprMsg = gValidateExprMsg.substring(0, gValidateExprMsg.length - 1);
+    if ( nCount == 0 ) {
+        alert("表头项目不能为空");
+        return false;
+    }
+    if( !oNode ) {
+        try {
+            oNode = createElement('input','leipiNewField');
+            oNode.setAttribute('type','text');
+            oNode.setAttribute('readonly','readonly');
+            
+            setAttri(oNode,thePlugins,gName,gTableWidth,gTitle,gColType,gFieldRequire,
+            gFieldHide,gPluginType,gPluginUri,gColValue,gBindTable,gBindField,gRemarks,gWidth, 
+            gSum, gUnitValue, gCSumBindTable, gCSumBindTableField, gFillUrl, gFillRelateField,gValidateExpr,gValidateExprMsg,
+                gSumRowBindDefValue,gSumRowRelateField, gSumRowName, gSumRowExpr, gRowSumBindTable, gRowSumBindTableField);
+            
+            editor.execCommand('insertHtml',oNode.outerHTML);
+            return true ;
+        } catch (e) {
+            try {
+                editor.execCommand('error');
+            } catch ( e ) {
+                alert('控件异常!');
+            }
+            return false;
+        }
+    } else {
+        //修改
+        oNode.setAttribute('name','leipiNewField');
+        setAttri(oNode,thePlugins,gName,gTableWidth,gTitle,gColType,gFieldRequire,
+        gFieldHide,gPluginType,gPluginUri,gColValue,gBindTable,gBindField,gRemarks,gWidth, 
+        gSum, gUnitValue, gCSumBindTable, gCSumBindTableField, gFillUrl, gFillRelateField,gValidateExpr,gValidateExprMsg,
+            gSumRowBindDefValue,gSumRowRelateField, gSumRowName, gSumRowExpr, gRowSumBindTable, gRowSumBindTableField);
+        delete UE.plugins[thePlugins].editdom; //使用后清空这个对象，变回新增模式
+    }
+};
+
+/**
+  * 设置属性
+  */
+function setAttri(oNode,thePlugins,gName,gTableWidth,gTitle,gColType,gFieldRequire,
+                  gFieldHide,gPluginType,gPluginUri,gColValue,gBindTable,gBindField,gRemarks,gWidth,
+                  gSum, gUnitValue, gCSumBindTable, gCSumBindTableField, gFillUrl, gFillRelateField,
+                  gValidateExpr,gValidateExprMsg, gSumRowBindDefValue,gSumRowRelateField, gSumRowName, gSumRowExpr,
+                  gRowSumBindTable, gRowSumBindTableField) {
+     oNode.setAttribute('leipiPlugins',thePlugins );
+     oNode.setAttribute('value','{'+gName+'}');
+     oNode.setAttribute('title',gName);
+     oNode.setAttribute('tablewidth',gTableWidth);
+     oNode.setAttribute('orgtitle',gTitle);
+     oNode.setAttribute('orgcoltype',gColType);
+     oNode.setAttribute('orgunit',gUnitValue);
+     oNode.setAttribute('orgsum',gSum);
+            
+     oNode.setAttribute('fieldrequire',gFieldRequire);
+     oNode.setAttribute('fieldhide',gFieldHide);
+     oNode.setAttribute('plugintype',gPluginType);
+     oNode.setAttribute('pluginuri',gPluginUri);
+            
+     oNode.setAttribute('orgcolvalue',gColValue);
+     oNode.setAttribute('bind_table',gBindTable);
+     oNode.setAttribute('bind_table_field',gBindField);
+     oNode.setAttribute('remarks',gRemarks);
+     
+     oNode.setAttribute('csum_bind_table', gCSumBindTable);
+     oNode.setAttribute('csum_bind_table_field', gCSumBindTableField);
+           
+     if( gWidth != '' ) {
+        oNode.style.width = gWidth;
+     } else {
+        oNode.style.width = '';
+     }
+     oNode.setAttribute('orgwidth',gWidth );
+     oNode.setAttribute('fill_url', gFillUrl);
+     oNode.setAttribute('fill_relate_field', gFillRelateField);
+     oNode.setAttribute('validate_expr',gValidateExpr);
+     oNode.setAttribute('validate_expr_msg',gValidateExprMsg);
+
+    oNode.setAttribute('bind_sum_row_field', gSumRowBindDefValue);
+    oNode.setAttribute('sum_relate_field', gSumRowRelateField);
+
+    oNode.setAttribute('sum_row_name', gSumRowName);
+    oNode.setAttribute('sum_row_expr', gSumRowExpr );
+
+    oNode.setAttribute('row_sum_bind_table', gRowSumBindTable);
+    oNode.setAttribute('row_sum_bind_table_field', gRowSumBindTableField);
+}
+
+/**
+ * 处理关联字段；从表单设计器中获取下拉框，并显示在关联属性中
+ */
+function handleRelateFiled() {
+    //获取编辑器中的内容
+    var ueditorContent = parent.getUeditorContents();
+    if(utils.isNotEmpty(ueditorContent)) {
+        $('#fill-relate-field').selectpicker('destroy');
+        var $uc = $(ueditorContent);
+        $("#fill-relate-field .relate-field-option").remove();
+        $uc.find("select[leipiplugins=select]").each(function(){
+            var $this = $(this);
+            var pTableFieldId = $this.attr("bind_table_field");
+            var title = $this.attr("orgtitle");
+            $("#fill-relate-field").append("<option class='relate-field-option' value='"+pTableFieldId+"'>"+title+"</option>");
+        });
+    }
+    $('#fill-relate-field').selectpicker({
+        iconBase: '',
+        tickIcon: 'icon-ok',
+        multipleSeparator: ';'
+    });
+}
+
+/**
+ * 处理统计行--合计关联字段
+ */
+function handleSumRowRelateFiled(datas) {
+    if(utils.isNotEmpty(datas)) {
+        $('#sum-relate-field').selectpicker('destroy');
+        $("#sum-relate-field .relate-field-option").remove();
+        for(var i=0; i< datas.length; i++) {
+            $("#sum-relate-field ").append("<option class='relate-field-option' value='"+datas[i][0]+"'>"+datas[i][1]+"</option>");
+        }
+    }
+    $('#sum-relate-field').selectpicker({
+        iconBase: '',
+        tickIcon: 'icon-ok',
+        multipleSeparator: ';'
+    });
+}
+</script>
+</body>
+</html>

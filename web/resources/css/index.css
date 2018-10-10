@@ -1,0 +1,5 @@
+.form-group{margin-bottom: 20px;}
+.form-group label{position: absolute; line-height: 2; font-size: 16px; font-weight: normal; transition: all .2s; pointer-events: none; color: #999;}
+.form-group .active{transform: translateY(-65%); font-size: 12px; color: #337ab7;}
+.form-group .form-control{font-size: 14px; box-shadow: none; padding-left: 0; padding-right: 0; border-radius: 0; border: none; border-bottom: 2px solid #eee; outline: none; transition: all .5s;}
+.form-group .form-control:focus{box-shadow: none; border-color: #337ab7;}
