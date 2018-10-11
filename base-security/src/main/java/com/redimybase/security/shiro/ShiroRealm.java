@@ -110,7 +110,6 @@ public class ShiroRealm extends AuthorizingRealm {
             logger.warn("账号 {} 已经被禁用，尝试登录！", userToken.getAccount());
             throw new AuthenticationException(SecurityConst.用户被封禁);
         }
-
         return new SimpleAuthenticationInfo(userToken.getUserId(), password, getName());
     }
 

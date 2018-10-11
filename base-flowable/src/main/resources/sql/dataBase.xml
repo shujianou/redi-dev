@@ -13,6 +13,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         <property name="username">
             <value>root</value>
         </property>
-        <property name="password" value="irany"/>
+        <property name="password" value=""/>
     </bean>
 </beans>

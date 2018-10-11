@@ -13,121 +13,121 @@
 'use strict';
 
 var flowableModeler = angular.module('flowableModeler', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngRoute',
-  'ngDragDrop',
-  'mgcrea.ngStrap',
-  'mgcrea.ngStrap.helpers.dimensions', // Needed for tooltips
-  'ui.grid',
-  'ui.grid.edit',
-  'ui.grid.selection',
-  'ui.grid.autoResize',
-  'ui.grid.moveColumns',
-  'ui.grid.cellNav',
-  'ngAnimate',
-  'pascalprecht.translate',
-  'ngFileUpload',
-  'angularSpectrumColorpicker',
-  'duScroll',
-  'dndLists',
-  'ngHandsontable'
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngRoute',
+    'ngDragDrop',
+    'mgcrea.ngStrap',
+    'mgcrea.ngStrap.helpers.dimensions', // Needed for tooltips
+    'ui.grid',
+    'ui.grid.edit',
+    'ui.grid.selection',
+    'ui.grid.autoResize',
+    'ui.grid.moveColumns',
+    'ui.grid.cellNav',
+    'ngAnimate',
+    'pascalprecht.translate',
+    'ngFileUpload',
+    'angularSpectrumColorpicker',
+    'duScroll',
+    'dndLists',
+    'ngHandsontable'
 ]);
 
 var flowableModule = flowableModeler;
 var flowableApp = flowableModeler;
 
 flowableModeler
-  // Initialize routes
-  .config(['$provide', '$routeProvider', '$selectProvider', '$translateProvider', function ($provide, $routeProvider, $selectProvider, $translateProvider) {
+// Initialize routes
+    .config(['$provide', '$routeProvider', '$selectProvider', '$translateProvider', function ($provide, $routeProvider, $selectProvider, $translateProvider) {
 
-    var appResourceRoot = FLOWABLE.CONFIG.webContextRoot + (FLOWABLE.CONFIG.webContextRoot ? '/' : '');
-    $provide.value('appResourceRoot', appResourceRoot);
+        var appResourceRoot = FLOWABLE.CONFIG.webContextRoot + (FLOWABLE.CONFIG.webContextRoot ? '/' : '');
+        $provide.value('appResourceRoot', appResourceRoot);
 
 
-    // Override caret for bs-select directive
-  	angular.extend($selectProvider.defaults, {
-      caretHtml: '&nbsp;<i class="icon icon-caret-down"></i>'
-  	});
-
-    $routeProvider
-        .when('/processes', {
-            templateUrl: appResourceRoot + 'views/processes.html',
-            controller: 'ProcessesCtrl'
-        })
-        .when('/processes/:modelId', {
-            templateUrl: appResourceRoot + 'views/process.html',
-            controller: 'ProcessCtrl'
-        })
-        .when('/processes/:modelId/history/:modelHistoryId', {
-            templateUrl: appResourceRoot + 'views/process.html',
-            controller: 'ProcessCtrl'
-        })
-        .when('/casemodels', {
-            templateUrl: appResourceRoot + 'views/casemodels.html',
-            controller: 'CaseModelsCtrl'
-        })
-        .when('/casemodels/:modelId', {
-            templateUrl: appResourceRoot + 'views/casemodel.html',
-            controller: 'CaseModelCtrl'
-        })
-        .when('/forms', {
-            templateUrl: appResourceRoot + 'views/forms.html',
-            controller: 'FormsCtrl'
-        })
-        .when('/forms/:modelId', {
-            templateUrl: appResourceRoot + 'views/form.html',
-            controller: 'FormCtrl'
-        })
-        .when('/forms/:modelId/history/:modelHistoryId', {
-            templateUrl: appResourceRoot + 'views/form.html',
-            controller: 'FormCtrl'
-        })
-        .when('/decision-tables', {
-            templateUrl: appResourceRoot + 'views/decision-tables.html',
-            controller: 'DecisionTablesController'
-        })
-        .when('/decision-tables/:modelId', {
-            templateUrl: appResourceRoot + 'views/decision-table.html',
-            controller: 'DecisionTableDetailsCtrl'
-        })
-        .when('/decision-tables/:modelId/history/:modelHistoryId', {
-            templateUrl: appResourceRoot + 'views/decision-table.html',
-            controller: 'DecisionTableDetailsCtrl'
-        })
-        .when('/apps', {
-            templateUrl: appResourceRoot + 'views/app-definitions.html',
-            controller: 'AppDefinitionsCtrl'
-        })
-        .when('/apps/:modelId', {
-            templateUrl: appResourceRoot + 'views/app-definition.html',
-            controller: 'AppDefinitionCtrl'
-        })
-        .when('/apps/:modelId/history/:modelHistoryId', {
-            templateUrl: 'views/app-definition.html',
-            controller: 'AppDefinitionCtrl'
-        })
-        .when('/editor/:modelId', {
-            templateUrl: appResourceRoot + 'editor-app/editor.html',
-            controller: 'EditorController'
-        })
-        .when('/form-editor/:modelId', {
-            templateUrl: appResourceRoot + 'views/form-builder.html',
-            controller: 'FormBuilderController'
-        })
-        .when('/case-editor/:modelId', {
-            templateUrl: appResourceRoot + 'editor-app/editor.html',
-            controller: 'EditorController'
-        })
-        .when('/decision-table-editor/:modelId', {
-            templateUrl: appResourceRoot + 'views/decision-table-editor.html',
-            controller: 'DecisionTableEditorController'
-        })
-        .when('/app-editor/:modelId', {
-            templateUrl: appResourceRoot + 'views/app-definition-builder.html',
-            controller: 'AppDefinitionBuilderController'
+        // Override caret for bs-select directive
+        angular.extend($selectProvider.defaults, {
+            caretHtml: '&nbsp;<i class="icon icon-caret-down"></i>'
         });
+
+        $routeProvider
+            .when('/processes', {
+                templateUrl: appResourceRoot + 'views/processes.html',
+                controller: 'ProcessesCtrl'
+            })
+            .when('/processes/:modelId', {
+                templateUrl: appResourceRoot + 'views/process.html',
+                controller: 'ProcessCtrl'
+            })
+            .when('/processes/:modelId/history/:modelHistoryId', {
+                templateUrl: appResourceRoot + 'views/process.html',
+                controller: 'ProcessCtrl'
+            })
+            .when('/casemodels', {
+                templateUrl: appResourceRoot + 'views/casemodels.html',
+                controller: 'CaseModelsCtrl'
+            })
+            .when('/casemodels/:modelId', {
+                templateUrl: appResourceRoot + 'views/casemodel.html',
+                controller: 'CaseModelCtrl'
+            })
+            .when('/forms', {
+                templateUrl: appResourceRoot + 'views/forms.html',
+                controller: 'FormsCtrl'
+            })
+            .when('/forms/:modelId', {
+                templateUrl: appResourceRoot + 'views/form.html',
+                controller: 'FormCtrl'
+            })
+            .when('/forms/:modelId/history/:modelHistoryId', {
+                templateUrl: appResourceRoot + 'views/form.html',
+                controller: 'FormCtrl'
+            })
+            .when('/decision-tables', {
+                templateUrl: appResourceRoot + 'views/decision-tables.html',
+                controller: 'DecisionTablesController'
+            })
+            .when('/decision-tables/:modelId', {
+                templateUrl: appResourceRoot + 'views/decision-table.html',
+                controller: 'DecisionTableDetailsCtrl'
+            })
+            .when('/decision-tables/:modelId/history/:modelHistoryId', {
+                templateUrl: appResourceRoot + 'views/decision-table.html',
+                controller: 'DecisionTableDetailsCtrl'
+            })
+            .when('/apps', {
+                templateUrl: appResourceRoot + 'views/app-definitions.html',
+                controller: 'AppDefinitionsCtrl'
+            })
+            .when('/apps/:modelId', {
+                templateUrl: appResourceRoot + 'views/app-definition.html',
+                controller: 'AppDefinitionCtrl'
+            })
+            .when('/apps/:modelId/history/:modelHistoryId', {
+                templateUrl: 'views/app-definition.html',
+                controller: 'AppDefinitionCtrl'
+            })
+            .when('/editor/:modelId', {
+                templateUrl: appResourceRoot + 'editor-app/editor.html',
+                controller: 'EditorController'
+            })
+            .when('/form-editor/:modelId', {
+                templateUrl: appResourceRoot + 'views/form-builder.html',
+                controller: 'FormBuilderController'
+            })
+            .when('/case-editor/:modelId', {
+                templateUrl: appResourceRoot + 'editor-app/editor.html',
+                controller: 'EditorController'
+            })
+            .when('/decision-table-editor/:modelId', {
+                templateUrl: appResourceRoot + 'views/decision-table-editor.html',
+                controller: 'DecisionTableEditorController'
+            })
+            .when('/app-editor/:modelId', {
+                templateUrl: appResourceRoot + 'views/app-definition-builder.html',
+                controller: 'AppDefinitionBuilderController'
+            });
 
         if (FLOWABLE.CONFIG.appDefaultRoute) {
             $routeProvider.when('/', {
@@ -142,8 +142,8 @@ flowableModeler
 
         // Initialize angular-translate
         $translateProvider.useStaticFilesLoader({
-          prefix: './i18n/',
-          suffix: '.json'
+            prefix: './i18n/',
+            suffix: '.json'
         })
         /*
         This can be used to map multiple browser language keys to a
@@ -152,13 +152,13 @@ flowableModeler
         // .registerAvailableLanguageKeys(['en'], {
         //     'en-*': 'en'
         // })
-        .useSanitizeValueStrategy('escapeParameters')
-        .uniformLanguageTag('bcp47')
-        .determinePreferredLanguage();
+            .useSanitizeValueStrategy('escapeParameters')
+            .uniformLanguageTag('bcp47')
+            .determinePreferredLanguage();
 
-  }])
-  .run(['$rootScope', '$timeout', '$modal', '$translate', '$location', '$http', '$window', 'appResourceRoot',
-        function($rootScope, $timeout, $modal, $translate, $location, $http, $window, appResourceRoot) {
+    }])
+    .run(['$rootScope', '$timeout', '$modal', '$translate', '$location', '$http', '$window', 'appResourceRoot',
+        function ($rootScope, $timeout, $modal, $translate, $location, $http, $window, appResourceRoot) {
 
             // set angular translate fallback language
             $translate.fallbackLanguage(['en']);
@@ -168,26 +168,26 @@ flowableModeler
                 moment.locale($translate.proposedLanguage());
             }
 
-            $rootScope.restRootUrl = function() {
+            $rootScope.restRootUrl = function () {
                 return FLOWABLE.CONFIG.contextRoot;
             };
 
-          	$rootScope.appResourceRoot = appResourceRoot;
+            $rootScope.appResourceRoot = appResourceRoot;
 
             $rootScope.window = {};
-            var updateWindowSize = function() {
+            var updateWindowSize = function () {
                 $rootScope.window.width = $window.innerWidth;
-                $rootScope.window.height  = $window.innerHeight;
+                $rootScope.window.height = $window.innerHeight;
             };
 
             // Window resize hook
-            angular.element($window).bind('resize', function() {
+            angular.element($window).bind('resize', function () {
                 $rootScope.safeApply(updateWindowSize());
             });
 
-            $rootScope.$watch('window.forceRefresh', function(newValue) {
-                if(newValue) {
-                    $timeout(function() {
+            $rootScope.$watch('window.forceRefresh', function (newValue) {
+                if (newValue) {
+                    $timeout(function () {
                         updateWindowSize();
                         $rootScope.window.forceRefresh = false;
                     });
@@ -243,7 +243,7 @@ flowableModeler
              * Set the current main page, using the page object. If the page is already active,
              * this is a no-op.
              */
-            $rootScope.setMainPage = function(mainPage) {
+            $rootScope.setMainPage = function (mainPage) {
                 $rootScope.mainPage = mainPage;
                 $location.path($rootScope.mainPage.path);
             };
@@ -252,8 +252,8 @@ flowableModeler
              * Set the current main page, using the page ID. If the page is already active,
              * this is a no-op.
              */
-            $rootScope.setMainPageById = function(mainPageId) {
-                for (var i=0; i<$rootScope.mainNavigation.length; i++) {
+            $rootScope.setMainPageById = function (mainPageId) {
+                for (var i = 0; i < $rootScope.mainNavigation.length; i++) {
                     if (mainPageId == $rootScope.mainNavigation[i].id) {
                         $rootScope.mainPage = $rootScope.mainNavigation[i];
                         break;
@@ -264,10 +264,10 @@ flowableModeler
             /**
              * A 'safer' apply that avoids concurrent updates (which $apply allows).
              */
-            $rootScope.safeApply = function(fn) {
+            $rootScope.safeApply = function (fn) {
                 var phase = this.$root.$$phase;
-                if(phase == '$apply' || phase == '$digest') {
-                    if(fn && (typeof(fn) === 'function')) {
+                if (phase == '$apply' || phase == '$digest') {
+                    if (fn && (typeof(fn) === 'function')) {
                         fn();
                     }
                 } else {
@@ -280,11 +280,11 @@ flowableModeler
                 queue: []
             };
 
-            $rootScope.showAlert = function(alert) {
-                if(alert.queue.length > 0) {
+            $rootScope.showAlert = function (alert) {
+                if (alert.queue.length > 0) {
                     alert.current = alert.queue.shift();
                     // Start timout for message-pruning
-                    alert.timeout = $timeout(function() {
+                    alert.timeout = $timeout(function () {
                         if (alert.queue.length == 0) {
                             alert.current = undefined;
                             alert.timeout = undefined;
@@ -297,7 +297,7 @@ flowableModeler
                 }
             };
 
-            $rootScope.addAlert = function(message, type) {
+            $rootScope.addAlert = function (message, type) {
                 var newAlert = {message: message, type: type};
                 if (!$rootScope.alerts.timeout) {
                     // Timeout for message queue is not running, start one
@@ -308,7 +308,7 @@ flowableModeler
                 }
             };
 
-            $rootScope.dismissAlert = function() {
+            $rootScope.dismissAlert = function () {
                 if (!$rootScope.alerts.timeout) {
                     $rootScope.alerts.current = undefined;
                 } else {
@@ -318,22 +318,22 @@ flowableModeler
                 }
             };
 
-            $rootScope.addAlertPromise = function(promise, type) {
+            $rootScope.addAlertPromise = function (promise, type) {
                 if (promise) {
-                    promise.then(function(data) {
+                    promise.then(function (data) {
                         $rootScope.addAlert(data, type);
                     });
                 }
             };
 
             $http.get(FLOWABLE.APP_URL.getAccountUrl())
-	        	.success(function (data, status, headers, config) {
-	              	$rootScope.account = data;
-	               	$rootScope.invalidCredentials = false;
-	 				$rootScope.authenticated = true;
-	          	});
+                .success(function (data, status, headers, config) {
+                    $rootScope.account = data;
+                    $rootScope.invalidCredentials = false;
+                    $rootScope.authenticated = true;
+                });
 
-	        $rootScope.logout = function () {
+            $rootScope.logout = function () {
                 $rootScope.authenticated = false;
                 $rootScope.authenticationError = false;
                 $http.get(FLOWABLE.APP_URL.getLogoutUrl())
@@ -345,13 +345,13 @@ flowableModeler
                     });
             };
         }
-  ])
-  .run(['$rootScope', '$location', '$translate', '$window', '$modal',
-        function($rootScope, $location, $translate, $window , $modal) {
+    ])
+    .run(['$rootScope', '$location', '$translate', '$window', '$modal',
+        function ($rootScope, $location, $translate, $window, $modal) {
 
             var fixedUrlPart = '/editor/';
 
-            $rootScope.backToLanding = function() {
+            $rootScope.backToLanding = function () {
                 var baseUrl = $location.absUrl();
                 var index = baseUrl.indexOf(fixedUrlPart);
                 if (index >= 0) {
@@ -363,8 +363,8 @@ flowableModeler
         }])
 
     // Moment-JS date-formatting filter
-    .filter('dateformat', function() {
-        return function(date, format) {
+    .filter('dateformat', function () {
+        return function (date, format) {
             if (date) {
                 if (format) {
                     return moment(date).format(format);

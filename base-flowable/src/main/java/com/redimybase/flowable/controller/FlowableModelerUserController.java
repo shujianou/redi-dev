@@ -1,5 +1,9 @@
 package com.redimybase.flowable.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import org.flowable.app.security.SecurityUtils;
+import org.flowable.idm.api.User;
+import org.flowable.idm.engine.impl.persistence.entity.UserEntityImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,7 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Vim 2018/10/11 0011 0:24
  */
 @RestController
-@RequestMapping("flowable/login")
+@RequestMapping("flowable")
 public class FlowableModelerUserController {
+
+    @RequestMapping("account")
+    public String account() {
+        return JSONObject.toJSONString(SecurityUtils.getCurrentUserObject());
+    }
 
 }

@@ -16,14 +16,14 @@ public class GeneratorTest {
 
     @Test
     public void generateCode() {
-        String packageName = "com.aispread.manager.test";      //包路径
+        String packageName = "com.redimybase.manager.flowable";      //包路径
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(false, "t_",packageName,"t_test");
+        generateByTables(false, "act_",packageName,"act_ru_task");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String tablePrefix, String packageName, String... tableNames) {
         GlobalConfig config = new GlobalConfig();
-        String dbUrl = "jdbc:mysql://127.0.0.1:3306/test?serverTimezone=GMT%2B8";
+        String dbUrl = "jdbc:mysql://127.0.0.1:3306/redi_db?serverTimezone=GMT%2B8";
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
         dataSourceConfig
                 .setUrl(dbUrl)
