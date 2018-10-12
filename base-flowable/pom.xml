@@ -34,6 +34,7 @@
             <artifactId>flowable-json-converter</artifactId>
         </dependency>
 
+
         <!--路由配置-->
        <!-- <dependency>
             <groupId>org.flowable</groupId>

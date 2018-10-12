@@ -124,6 +124,11 @@
             </dependency>
             <dependency>
                 <groupId>org.flowable</groupId>
+                <artifactId>flowable-engine-common</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
                 <artifactId>flowable-ui-modeler-conf</artifactId>
                 <version>${flowable.version}</version>
             </dependency>
