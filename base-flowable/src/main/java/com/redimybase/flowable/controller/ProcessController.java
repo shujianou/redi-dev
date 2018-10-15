@@ -32,7 +32,7 @@ import java.util.List;
  * Created by Vim 2018/10/11 15:09
  */
 @RestController
-@RequestMapping("flowable/process")
+@RequestMapping("process")
 @Slf4j
 public class ProcessController {
 
@@ -52,7 +52,7 @@ public class ProcessController {
      * @param processInstanceId 实例ID
      */
     @GetMapping("view/flowPng")
-    public void viewFlowPng(HttpServletRequest request, HttpServletResponse response, String processInstanceId) {
+    public void viewFlowPng(HttpServletResponse response, String processInstanceId) {
 
         //获取到相应实例的任务节点
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
@@ -84,6 +84,7 @@ public class ProcessController {
 
     /**
      * 根据流程ID启动流程
+     *
      * @param id 流程ID
      */
     @PostMapping("startProcessById")
@@ -95,6 +96,7 @@ public class ProcessController {
 
     /**
      * 根据流程定义ID部署流程
+     *
      * @param processDefId 流程定义ID
      */
     @PostMapping("deploy")
@@ -104,7 +106,6 @@ public class ProcessController {
         repositoryService.createDeployment().addBpmnModel(processDefinition.getResourceName(), model);
         return R.ok();
     }
-
 
 
     @Autowired

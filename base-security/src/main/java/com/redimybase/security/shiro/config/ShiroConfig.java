@@ -3,13 +3,17 @@ package com.redimybase.security.shiro.config;
 import com.redimybase.security.shiro.ShiroRealm;
 import com.redimybase.security.shiro.cache.SecuritySessionManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
@@ -44,6 +48,11 @@ public class ShiroConfig {
     @Value("${jedis.password}")
     private String password;
 
+    /**
+     * 用户登陆token保存时间
+     */
+    @Value("${redi.rememberMeCookie.maxAge}")
+    private int rememberMeAge;
 
     @Bean(name = "sessionManager")
     public SessionManager sessionManager() {
@@ -88,11 +97,12 @@ public class ShiroConfig {
 
 
     @Bean(name = "securityManager")
-    public SecurityManager securityManager(@Qualifier("shiroRealm") ShiroRealm userRealm, SessionManager sessionManager) {
+    public SecurityManager securityManager(@Qualifier("shiroRealm") ShiroRealm userRealm, SessionManager sessionManager, RememberMeManager rememberMeManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         userRealm.setAuthenticationCachingEnabled(true);
         securityManager.setRealm(userRealm);
         securityManager.setSessionManager(sessionManager);
+        securityManager.setRememberMeManager(rememberMeManager);
 
         return securityManager;
     }
@@ -179,5 +189,22 @@ public class ShiroConfig {
         return advisor;
     }
 
+
+    @Bean
+    public RememberMeManager rememberMeManager(SimpleCookie rememberMeCookie) {
+        CookieRememberMeManager manager = new CookieRememberMeManager();
+        manager.setCookie(rememberMeCookie);
+        manager.setCipherKey(Base64.decode("6ZmI6I2j5Y+R5aSn5ZOlAA=="));
+        return manager;
+    }
+
+    @Bean
+    public SimpleCookie rememberMeCookie() {
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(rememberMeAge);
+        return cookie;
+    }
 }
 
