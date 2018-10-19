@@ -2,11 +2,15 @@ package com.redimybase.flowable.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.redimybase.flowable.util.ModelUtils;
 import com.redimybase.framework.bean.R;
+import com.redimybase.framework.exception.BusinessException;
 import com.redimybase.manager.flowable.entity.ReProcdefEntity;
 import com.redimybase.manager.flowable.service.impl.ReProcdefServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.flowable.app.domain.editor.Model;
+import org.flowable.app.service.api.ModelService;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RepositoryService;
@@ -16,16 +20,12 @@ import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.image.impl.DefaultProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 流程控制类
@@ -36,12 +36,37 @@ import java.util.List;
 @Slf4j
 public class ProcessController {
 
+    /**
+     * 根据流程模型ID部署流程
+     *
+     * @param id 流程模型ID
+     */
+    @RequestMapping("deployByModelId")
+    public R<?> deployByModelId(String id) {
+        //方法一
+        /*Model model = modelService.getModel(id);
+        return new R<>(
+                repositoryService.createDeployment().addBytes(model.getName() + ".bpmn", modelUtils.generateBpmn20Xml(model)).deploy()
+        );*/
+        //方法二
+        Model model = modelService.getModel(id);
+        return new R<>(repositoryService.createDeployment().addBpmnModel(
+                model.getKey() + ".bpmn",
+                modelService.getBpmnModel(model)).deploy());
+    }
+
 
     /**
      * 获取流程定义列表
      */
-    @PostMapping("def/list")
+    @RequestMapping("def/list")
     public R<?> defList(Integer current, Integer size) {
+        if (current == null) {
+            throw new BusinessException(500, "缺少参数[current]");
+        }
+        if (size == null) {
+            throw new BusinessException(500, "缺少参数[size]");
+        }
         return new R<>(reProcdefService.page(new Page<>(current, size), new QueryWrapper<ReProcdefEntity>().select("key_", "name_", "category_", "id_")));
     }
 
@@ -51,7 +76,7 @@ public class ProcessController {
      *
      * @param processInstanceId 实例ID
      */
-    @GetMapping("view/flowPng")
+    @RequestMapping("view/flowPng")
     public void viewFlowPng(HttpServletResponse response, String processInstanceId) {
 
         //获取到相应实例的任务节点
@@ -87,20 +112,58 @@ public class ProcessController {
      *
      * @param id 流程ID
      */
-    @PostMapping("startProcessById")
+    @RequestMapping("startProcessById")
     public R<?> startProcessByInstanceId(String id) {
         runtimeService.startProcessInstanceById(id);
         return R.ok();
     }
 
+    /**
+     * 根据流程定义KEY启动流程
+     *
+     * @param key 流程定义KEY
+     */
+    @RequestMapping("startProcessByKey")
+    public R<?> startProcessByKey(String key) {
+        runtimeService.startProcessInstanceByKey(key);
+        return R.ok();
+    }
+
+
+    /**
+     * 根据流程定义KEY启动表单流程(测试用)
+     * @param key 流程定义KEY
+     */
+    @RequestMapping("startProcessWithFormByKey")
+    public R<?> startProcessWithFormByKey(String key) {
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey(key).singleResult();
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("starTime", new Date());
+        variables.put("entTime", new Date());
+        variables.put("reason", "回家有事");
+        runtimeService.startProcessInstanceWithForm(processDefinition.getId(), "suiyi", variables, "formInstance");
+        return R.ok();
+    }
+
+    /**
+     * 完成任务
+     *
+     * @param taskId 任务ID
+     */
+    @RequestMapping("complete")
+    public R<?> complete(String taskId) {
+        taskService.complete(taskId);
+        return R.ok();
+    }
 
     /**
      * 根据流程定义ID部署流程
      *
      * @param processDefId 流程定义ID
      */
-    @PostMapping("deploy")
-    public R<?> deployProcess(String processDefId) {
+    @RequestMapping("deployByDefId")
+    public R<?> deployByDefId(String processDefId) {
         BpmnModel model = repositoryService.getBpmnModel(processDefId);
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefId).singleResult();
         repositoryService.createDeployment().addBpmnModel(processDefinition.getResourceName(), model);
@@ -122,4 +185,10 @@ public class ProcessController {
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private ModelService modelService;
+
+    @Autowired
+    private ModelUtils modelUtils;
 }
