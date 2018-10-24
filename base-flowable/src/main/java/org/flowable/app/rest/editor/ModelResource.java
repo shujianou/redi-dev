@@ -27,7 +27,9 @@ import org.flowable.app.service.exception.BadRequestException;
 import org.flowable.app.service.exception.ConflictingRequestException;
 import org.flowable.app.service.exception.InternalServerErrorException;
 import org.flowable.bpmn.converter.BpmnXMLConverter;
+import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.editor.language.json.converter.BpmnJsonConverter;
+import org.flowable.engine.RepositoryService;
 import org.flowable.idm.api.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +64,9 @@ public class ModelResource {
 
     @Autowired
     protected ModelRepository modelRepository;
+
+    @Autowired
+    protected RepositoryService repositoryService;
 
     @Autowired
     protected ObjectMapper objectMapper;
@@ -102,7 +107,7 @@ public class ModelResource {
 
         try {
             updatedModel.updateModel(model);
-            
+
             if (model.getModelType() != null) {
                 ObjectNode modelNode = (ObjectNode) objectMapper.readTree(model.getModelEditorJson());
                 modelNode.put("name", model.getName());
@@ -119,7 +124,7 @@ public class ModelResource {
                 }
                 model.setModelEditorJson(modelNode.toString());
             }
-            
+
             modelRepository.save(model);
 
             ModelRepresentation result = new ModelRepresentation(model);
@@ -242,6 +247,7 @@ public class ModelResource {
             return updateModel(model, values, false);
 
         }
+
     }
 
     /**

@@ -2,6 +2,7 @@ package com.redimybase.flowable.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.redimybase.flowable.cmd.SyncFlowCmd;
 import com.redimybase.flowable.util.ModelUtils;
 import com.redimybase.framework.bean.R;
 import com.redimybase.framework.exception.BusinessException;
@@ -12,10 +13,8 @@ import org.apache.commons.io.IOUtils;
 import org.flowable.app.domain.editor.Model;
 import org.flowable.app.service.api.ModelService;
 import org.flowable.bpmn.model.BpmnModel;
-import org.flowable.engine.HistoryService;
-import org.flowable.engine.RepositoryService;
-import org.flowable.engine.RuntimeService;
-import org.flowable.engine.TaskService;
+import org.flowable.engine.*;
+import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.image.impl.DefaultProcessDiagramGenerator;
 import org.flowable.task.api.Task;
@@ -50,9 +49,13 @@ public class ProcessController {
         );*/
         //方法二
         Model model = modelService.getModel(id);
-        return new R<>(repositoryService.createDeployment().addBpmnModel(
+        Deployment deploy = repositoryService.createDeployment().addBpmnModel(
                 model.getKey() + ".bpmn",
-                modelService.getBpmnModel(model)).deploy());
+                modelService.getBpmnModel(model)).deploy();
+
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).singleResult();
+
+        return new R<>(deploy);
     }
 
 
@@ -191,4 +194,5 @@ public class ProcessController {
 
     @Autowired
     private ModelUtils modelUtils;
+
 }
