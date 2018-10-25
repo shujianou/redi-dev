@@ -3,6 +3,9 @@ package com.redimybase.manager.flowable.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
@@ -18,13 +21,13 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author vim
- * @since 2018-10-25
+ * @since 2018-10-24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("t_flow_form")
-public class FlowFormEntity extends IdEntity<String> {
+public class FlowFormContentEntity extends IdEntity<String> {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,36 +35,40 @@ public class FlowFormEntity extends IdEntity<String> {
     private String id;
 
     /**
+     * 表单名称
+     */
+    @TableField("name")
+    private String name;
+
+    /**
      * 表单key
      */
     @TableField("form_key")
-    private String formKey;
+    private String key;
 
     /**
-     * 表单类型(暂时弃用)
+     * 表单内容(值)
      */
-    @TableField("type")
-    private Integer type;
+    @TableField("value")
+    private String value;
 
     /**
-     * 节点ID
+     * 版本号
      */
-    @TableField("node_id")
-    private String nodeId;
-
+    @TableField("version")
+    private Integer version;
 
     /**
-     * 发起人是否可见(0:否,1:是)
+     * 创建时间
      */
-    @TableField("initiator_view")
-    private Integer initiatorView;
-
+    @TableField("create_time")
+    private LocalDateTime createTime;
 
     /**
-     * 审批人是否可见(0:否,1:是)
+     * 更新时间
      */
-    @TableField("approver_view")
-    private Integer approverView;
+    @TableField("update_time")
+    private LocalDateTime updateTime;
 
     public String getId() {
         return id;
@@ -69,10 +76,5 @@ public class FlowFormEntity extends IdEntity<String> {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-
-    public class Type {
-        public static final int DEFAULT = 0;
     }
 }

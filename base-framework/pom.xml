@@ -91,10 +91,10 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <dependency>
+   <!--     <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-        </dependency>
+        </dependency>-->
         <!--emoji表情过滤包-->
         <dependency>
             <groupId>com.vdurmont</groupId>

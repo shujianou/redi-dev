@@ -1,6 +1,6 @@
 package com.redimybase.manager.flowable.mapper;
 
-import com.redimybase.manager.flowable.entity.FlowFormEntity;
+import com.redimybase.manager.flowable.entity.DeModelEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author vim
  * @since 2018-10-25
  */
-public interface FlowFormMapper extends BaseMapper<FlowFormEntity> {
+public interface DeModelMapper extends BaseMapper<DeModelEntity> {
 
 }

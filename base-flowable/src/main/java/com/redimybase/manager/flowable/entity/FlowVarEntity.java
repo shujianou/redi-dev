@@ -40,8 +40,8 @@ public class FlowVarEntity extends IdEntity<String> {
     /**
      * 变量key
      */
-    @TableField("key")
-    private String key;
+    @TableField("var_key")
+    private String varKey;
 
     /**
      * 表单字段

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.redimybase.framework.mybatis.id.IdEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,7 +29,7 @@ public class FlowNodeEntity extends IdEntity<String> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ID_WORKER_STR)
+    @TableId(value = "id")
     private String id;
 
     /**
@@ -49,6 +50,16 @@ public class FlowNodeEntity extends IdEntity<String> {
     @TableField("definition_id")
     private String definitionId;
 
+    /**
+     * 父级ID(子流程ID)
+     */
+    @TableField("parent_id")
+    private String parentId;
+
+    public FlowNodeEntity() {
+        this.id = IdWorker.getIdStr();
+    }
+
     public String getId() {
         return id;
     }
@@ -62,7 +73,8 @@ public class FlowNodeEntity extends IdEntity<String> {
         public static final String USER_TASK = "userTask";
         public static final String START_EVENT = "start";
         public static final String END_EVENT = "end";
-        public static final String GATEWAY = "gateway";
+        public static final String INCLUSIVE_GATEWAY = "inclusiveGateway";
         public static final String PARALLEL_GATEWAY = "parallelGateway";
+        public static final String SUBPROCESS = "subProcess";
     }
 }

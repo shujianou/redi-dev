@@ -1,6 +1,6 @@
 package com.redimybase.flowable.service.impl;
 
-import com.redimybase.flowable.service.FlowConfigService;
+import com.redimybase.flowable.service.ProcessConfigService;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by Vim 2018/10/19 12:24
  */
 @Service
-public class FlowConfigServiceImpl implements FlowConfigService {
+public class ProcessConfigServiceImpl implements ProcessConfigService {
     @Override
     public Map<String, String> getGlobalVariables() {
         return null;

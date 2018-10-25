@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.redimybase.framework.mybatis.id.IdEntity;
 import lombok.Data;
@@ -43,8 +44,8 @@ public class FlowDefinitionEntity extends IdEntity<String> {
     /**
      * 定义key
      */
-    @TableField("key")
-    private String key;
+    @TableField("definition_key")
+    private String definitionKey;
 
     /**
      * 所属种类
@@ -71,16 +72,27 @@ public class FlowDefinitionEntity extends IdEntity<String> {
     private String flowDefinitionKey;
 
     /**
+     * 工作流流程定义ID
+     */
+    @TableField("flow_definition_id")
+    private String flowDefinitionId;
+
+    /**
+     * 工作流流程定义版本
+     */
+    @TableField("flow_definition_version")
+    private String flowDefinitionVersion;
+    /**
      * 创建时间
      */
     @TableField("create_time")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
     @TableField("update_time")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 创建人

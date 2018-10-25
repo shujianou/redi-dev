@@ -18,11 +18,8 @@ public class GeneratorTest {
     public void generateCode() {
         String packageName = "com.redimybase.manager.flowable";      //包路径
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-        generateByTables(false, "t_",packageName,
-                "t_flow_definition","t_flow_definition_category",
-                "t_flow_form","t_flow_model_category",
-                "t_flow_node","t_flow_user",
-                "t_flow_var");
+        generateByTables(false, "t_", packageName,
+                "t_flow_notice");
     }
 
     private void generateByTables(boolean serviceNameStartWithI, String tablePrefix, String packageName, String... tableNames) {

@@ -1,7 +1,7 @@
 package com.redimybase.flowable.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.redimybase.flowable.service.FlowHandleService;
+import com.redimybase.flowable.service.ProcessHandleService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * Created by Vim 2018/10/12 0012 22:20
  */
 @Service
-public class FlowHandleServiceImpl implements FlowHandleService {
+public class ProcessHandleServiceImpl implements ProcessHandleService {
 
 
     @Override

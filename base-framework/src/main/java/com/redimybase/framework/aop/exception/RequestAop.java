@@ -1,5 +1,6 @@
 package com.redimybase.framework.aop.exception;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import com.redimybase.framework.bean.R;
 import com.redimybase.framework.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,6 @@ public class RequestAop {
 
     /**
      * 业务异常
-     *
-     * @param e
-     * @return
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -45,9 +43,6 @@ public class RequestAop {
 
     /**
      * 无权访问异常
-     *
-     * @param e
-     * @return
      */
     @ExceptionHandler(UndeclaredThrowableException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -61,8 +56,6 @@ public class RequestAop {
 
     /**
      * 无权调用接口异常
-     * @param e
-     * @return
      */
     @ExceptionHandler(AuthorizationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -72,6 +65,16 @@ public class RequestAop {
 
         log.error("auth error:", e);
         return new R<>(R.无权限, e.getMessage());
+    }
+
+    /**
+     * 通用异常
+     */
+    @ExceptionHandler(Exception.class)
+    public R<?> mysqlException(Exception e) {
+
+        log.error("error:",e);
+        return new R<>(R.失败, e.getMessage());
     }
 
 }

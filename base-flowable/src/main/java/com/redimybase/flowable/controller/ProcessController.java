@@ -2,7 +2,6 @@ package com.redimybase.flowable.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.redimybase.flowable.cmd.SyncFlowCmd;
 import com.redimybase.flowable.util.ModelUtils;
 import com.redimybase.framework.bean.R;
 import com.redimybase.framework.exception.BusinessException;
@@ -34,29 +33,6 @@ import java.util.*;
 @RequestMapping("process")
 @Slf4j
 public class ProcessController {
-
-    /**
-     * 根据流程模型ID部署流程
-     *
-     * @param id 流程模型ID
-     */
-    @RequestMapping("deployByModelId")
-    public R<?> deployByModelId(String id) {
-        //方法一
-        /*Model model = modelService.getModel(id);
-        return new R<>(
-                repositoryService.createDeployment().addBytes(model.getName() + ".bpmn", modelUtils.generateBpmn20Xml(model)).deploy()
-        );*/
-        //方法二
-        Model model = modelService.getModel(id);
-        Deployment deploy = repositoryService.createDeployment().addBpmnModel(
-                model.getKey() + ".bpmn",
-                modelService.getBpmnModel(model)).deploy();
-
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).singleResult();
-
-        return new R<>(deploy);
-    }
 
 
     /**

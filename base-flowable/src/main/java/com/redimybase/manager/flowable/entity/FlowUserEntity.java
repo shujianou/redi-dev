@@ -32,7 +32,7 @@ public class FlowUserEntity extends IdEntity<String> {
     private String id;
 
     /**
-     * 用户类型(0:发起人,1:用户组,2:其他节点,3:来自表单,4:上级领导,)
+     * 用户类型(0:发起人,1:用户组,2:其他节点,3:来自表单,4:上级领导,5:普通用户)
      */
     @TableField("type")
     private Integer type;
@@ -49,11 +49,19 @@ public class FlowUserEntity extends IdEntity<String> {
     @TableField("symbol")
     private Integer symbol;
 
+
+    /**
+     * 节点ID
+     */
+    @TableField("node_id")
+    private String nodeId;
+
     /**
      * 排序
      */
     @TableField("sort")
     private Integer sort;
+
 
     public String getId() {
         return id;
@@ -61,5 +69,14 @@ public class FlowUserEntity extends IdEntity<String> {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public class Type {
+        public static final int INITIATOR = 0;
+        public static final int USER_GROUP = 1;
+        public static final int ORTHER_NODE = 2;
+        public static final int FROM_FORM = 3;
+        public static final int LEADERSHIP = 4;
+        public static final int USER = 5;
     }
 }

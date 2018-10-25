@@ -1,17 +1,25 @@
 package com.redimybase.flowable.cmd;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.redimybase.framework.listener.SpringContextListener;
+import com.redimybase.manager.flowable.entity.FlowFormEntity;
 import com.redimybase.manager.flowable.entity.FlowNodeEntity;
+import com.redimybase.manager.flowable.entity.FlowUserEntity;
+import com.redimybase.manager.flowable.service.FlowFormService;
 import com.redimybase.manager.flowable.service.FlowNodeService;
+import com.redimybase.manager.flowable.service.FlowUserService;
+import com.redimybase.manager.flowable.service.impl.FlowFormServiceImpl;
 import com.redimybase.manager.flowable.service.impl.FlowNodeServiceImpl;
+import com.redimybase.manager.flowable.service.impl.FlowUserServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.model.*;
 import org.flowable.bpmn.model.Process;
 import org.flowable.engine.ProcessEngineConfiguration;
-import org.flowable.engine.common.impl.de.odysseus.el.tree.Node;
 import org.flowable.engine.common.impl.interceptor.Command;
 import org.flowable.engine.common.impl.interceptor.CommandContext;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 同步更新流程定义
@@ -23,6 +31,8 @@ public class SyncFlowCmd implements Command<Void> {
         this.processDefinitionId = processDefinitionId;
         this.defId = defId;
         nodeService = SpringContextListener.getBean(FlowNodeServiceImpl.class);
+        formService = SpringContextListener.getBean(FlowFormServiceImpl.class);
+        userService = SpringContextListener.getBean(FlowUserServiceImpl.class);
     }
 
     @Override
@@ -37,55 +47,117 @@ public class SyncFlowCmd implements Command<Void> {
         //获取到模型里的流程节点
         Collection<FlowElement> flowElements = process.getFlowElements();
 
-        //遍历
-        flowElements.forEach(this::saveNode);
+        //遍历前清空对应流程定义的节点信息
+        beforeSaveNode();
+        flowElements.forEach(element -> {
+            saveNode(element, null);
+        });
         return null;
+    }
+
+    /**
+     * 保存节点前删除无用数据
+     */
+    private void beforeSaveNode() {
+        List<FlowNodeEntity> list = nodeService.list(new QueryWrapper<FlowNodeEntity>().eq("definition_id", defId).select("id"));
+
+        for (FlowNodeEntity node : list) {
+            formService.remove(new QueryWrapper<FlowFormEntity>().eq("node_id", node.getId()));
+            userService.remove(new QueryWrapper<FlowUserEntity>().eq("node_id", node.getId()));
+            nodeService.removeById(node.getId());
+        }
     }
 
 
     /**
      * 保存节点
+     *
      * @param element 流程节点
      */
-    private void saveNode(FlowElement element) {
+    private void saveNode(FlowElement element, String subProcessId) {
         if (element == null) {
             return;
         }
 
         FlowNodeEntity nodeEntity;
         if (element instanceof SubProcess) {
-            saveNode(element.getSubProcess());
+            nodeEntity = new FlowNodeEntity();
+            if (StringUtils.isNotBlank(element.getName())) {
+                nodeEntity.setName(element.getName());
+            } else {
+                nodeEntity.setName("子流程");
+            }
+            nodeEntity.setType(FlowNodeEntity.Type.SUBPROCESS);
+            nodeEntity.setDefinitionId(defId);
+            nodeService.save(nodeEntity);
+
+            //遍历子流程内的节点
+            for (FlowElement flowElement : ((SubProcess) element).getFlowElements()) {
+                saveNode(flowElement, nodeEntity.getId());
+            }
         }
 
         nodeEntity = new FlowNodeEntity();
         nodeEntity.setName(element.getName());
         nodeEntity.setDefinitionId(defId);
+        if (subProcessId != null) {
+            //子流程ID不为null说明为子流程内的节点
+            nodeEntity.setParentId(subProcessId);
+        }
 
         if (element instanceof UserTask) {
             nodeEntity.setType(FlowNodeEntity.Type.USER_TASK);
-        }
-        if (element instanceof StartEvent) {
+            confUserTask((UserTask) element, nodeEntity.getId());
+        } else if (element instanceof StartEvent) {
+            if (StringUtils.isBlank(nodeEntity.getName())) {
+                nodeEntity.setName("开始节点");
+            }
             nodeEntity.setType(FlowNodeEntity.Type.START_EVENT);
-        }
-        if (element instanceof EndEvent) {
+        } else if (element instanceof EndEvent) {
+            if (StringUtils.isBlank(nodeEntity.getName())) {
+                nodeEntity.setName("结束节点");
+            }
             nodeEntity.setType(FlowNodeEntity.Type.END_EVENT);
-        }
-        if (element instanceof Gateway) {
-            nodeEntity.setType(FlowNodeEntity.Type.GATEWAY);
-        }
-        if (element instanceof ParallelGateway) {
+        } else if (element instanceof InclusiveGateway) {
+            nodeEntity.setType(FlowNodeEntity.Type.INCLUSIVE_GATEWAY);
+        } else if (element instanceof ParallelGateway) {
             nodeEntity.setType(FlowNodeEntity.Type.PARALLEL_GATEWAY);
+        } else {
+            return;
         }
-
         nodeService.save(nodeEntity);
     }
 
     /**
-     * 配置节点
+     * 配置用户任务
      */
-    private void configNode(Node node, BpmnModel model) {
+    private void confUserTask(UserTask userTask, String nodeId) {
+        //配置表单
+        if (StringUtils.isNotBlank(userTask.getFormKey())) {
+
+            FlowFormEntity formEntity = new FlowFormEntity();
+            formEntity.setFormKey(userTask.getFormKey());
+            formEntity.setNodeId(nodeId);
+            formEntity.setType(FlowFormEntity.Type.DEFAULT);
+
+            formService.save(formEntity);
+        }
+
+        //配置用户
+        if (StringUtils.isNotBlank(userTask.getAssignee())) {
+
+            FlowUserEntity userEntity = new FlowUserEntity();
+            userEntity.setSort(0);
+            userEntity.setType(FlowUserEntity.Type.USER);
+            userEntity.setValue(userTask.getAssignee());
+            userEntity.setNodeId(nodeId);
+
+            userService.save(userEntity);
+        }
+
 
     }
+
 
     /**
      * 业务流程定义ID
@@ -98,5 +170,9 @@ public class SyncFlowCmd implements Command<Void> {
     private String processDefinitionId;
 
     private FlowNodeService nodeService;
+
+    private FlowFormService formService;
+
+    private FlowUserService userService;
 
 }

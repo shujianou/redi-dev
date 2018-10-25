@@ -58,8 +58,8 @@ public class FlowDefinitionCategoryEntity extends IdEntity<String> {
     /**
      * 种类标识KEY
      */
-    @TableField("key")
-    private String key;
+    @TableField("category_key")
+    private String categoryKey;
 
 
     public String getId() {

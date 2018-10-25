@@ -3,6 +3,10 @@ package com.redimybase.manager.flowable.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.time.LocalDateTime;
+import java.sql.Blob;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
@@ -14,49 +18,61 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 流程模型种类表
+ *
  * </p>
  *
  * @author vim
- * @since 2018-10-24
+ * @since 2018-10-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_flow_model_category")
-public class FlowModelCategoryEntity extends IdEntity<String> {
+@TableName("act_de_model")
+public class DeModelEntity extends IdEntity<String> {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    /**
-     * 流程模型分类名称
-     */
     @TableField("name")
     private String name;
 
-    /**
-     * 模型标识key
-     */
     @TableField("model_key")
     private String modelKey;
-
-    /**
-     * 排序
-     */
-    @TableField("sort")
-    private Integer sort;
 
     @TableField("description")
     private String description;
 
-    /**
-     * 父级ID
-     */
-    @TableField("parent_id")
-    private String parentId;
+    @TableField("model_comment")
+    private String modelComment;
+
+    @TableField("created")
+    private LocalDateTime created;
+
+    @TableField("created_by")
+    private String createdBy;
+
+    @TableField("last_updated")
+    private LocalDateTime lastUpdated;
+
+    @TableField("last_updated_by")
+    private String lastUpdatedBy;
+
+    @TableField("version")
+    private Integer version;
+
+    @TableField("model_editor_json")
+    private String modelEditorJson;
+
+    @TableField("thumbnail")
+    private Blob thumbnail;
+
+    @TableField("model_type")
+    private Integer modelType;
+
+    @TableField("tenant_id")
+    private String tenantId;
 
     public String getId() {
         return id;

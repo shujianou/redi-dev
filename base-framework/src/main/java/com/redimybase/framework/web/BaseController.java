@@ -40,7 +40,7 @@ public abstract class BaseController<ID extends Serializable, E extends BaseEnti
     @PostMapping(value = "save")
     public R<?> save(E entity) {
         beforeSave(entity);
-        if (entity.getId() == null) {
+        if (StringUtils.isBlank((String) entity.getId())) {
             getService().save(entity);
         } else {
             // TODO 如有涉及脏读数据再重写该方法加锁
@@ -217,41 +217,43 @@ public abstract class BaseController<ID extends Serializable, E extends BaseEnti
      * @return
      */
     protected QueryWrapper<E> analysisExpression(String str, String val, QueryWrapper<E> wrapper) {
-        String filter_1 = str.substring(0, str.indexOf("_"));
-        String filter_2 = str.substring(str.lastIndexOf("_") + 1, str.length());
+        String filter1 = str.substring(0, str.indexOf("_"));
+        String filter2 = str.substring(str.lastIndexOf("_") + 1, str.length());
         String column = str.substring(str.indexOf("_") + 1, str.lastIndexOf("_"));
 
-        switch (filter_2) {
+        switch (filter2) {
             case "EQ":
-                filter_2 = "=";
+                filter2 = "=";
                 break;
             case "NE":
-                filter_2 = "!=";
+                filter2 = "!=";
                 break;
             case "LT":
-                filter_2 = "<";
+                filter2 = "<";
                 break;
             case "LE":
-                filter_2 = "<=";
+                filter2 = "<=";
                 break;
             case "GT":
-                filter_2 = ">";
+                filter2 = ">";
                 break;
             case "GE":
-                filter_2 = ">=";
+                filter2 = ">=";
                 break;
             case "LK":
-                filter_2 = "like";
+                filter2 = "like";
                 break;
             case "NK":
-                filter_2 = "not like";
+                filter2 = "not like";
+            default:
+                break;
         }
 
-        if (StringUtils.equals("AND", filter_1)) {
-            String finalFilter_2 = filter_2;
+        if (StringUtils.equals("AND", filter1)) {
+            String finalFilter_2 = filter2;
             wrapper.and(w -> w.eq(column + finalFilter_2 + "{0}", val));
-        } else if (StringUtils.equals("OR", filter_1)) {
-            String finalFilter_1 = filter_2;
+        } else if (StringUtils.equals("OR", filter1)) {
+            String finalFilter_1 = filter2;
             wrapper.or(w -> w.eq(column + finalFilter_1 + "{0}", val));
         }
         return wrapper;

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * 流程操作相关
  * Created by Vim 2018/10/12 0012 21:52
  */
-public interface FlowHandleService {
+public interface ProcessHandleService {
 
     /**
      * 获取所有流程实例
