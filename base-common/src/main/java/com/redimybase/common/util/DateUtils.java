@@ -40,11 +40,11 @@ public class DateUtils {
 
         if (value instanceof String) {
             if (StringUtils.isNotEmpty((String)value)) {
-                result = org.apache.commons.lang3.time.DateUtils.parseDate((String) value, new String[] { DATE_PATTERN, DATETIME_PATTERN, FULLDATETIME_PATTERN, MONTH_PATTERN });
+                result = org.apache.commons.lang3.time.DateUtils.parseDate((String) value, DATE_PATTERN, DATETIME_PATTERN, FULLDATETIME_PATTERN, MONTH_PATTERN);
 
                 if (result == null && StringUtils.isNotEmpty((String)value)) {
                     try {
-                        result = new Date(new Long((String) value).longValue());
+                        result = new Date(new Long((String) value));
                     } catch (Exception e) {
                         throw e;
                     }
@@ -78,11 +78,11 @@ public class DateUtils {
         if (value instanceof String) {
             if (StringUtils.isNotEmpty((String)value)) {
                 try {
-                    result = org.apache.commons.lang3.time.DateUtils.parseDate((String) value, new String[] { pattern });
+                    result = org.apache.commons.lang3.time.DateUtils.parseDate((String) value, pattern);
                 } catch (ParseException e) {}
 
                 if (result == null && StringUtils.isNotEmpty((String)value)) {
-                    result = new Date(new Long((String) value).longValue());
+                    result = new Date(new Long((String) value));
                 }
             }
         } else if (value instanceof Object[]) {

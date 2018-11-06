@@ -71,7 +71,7 @@ public abstract class BaseController<ID extends Serializable, E extends BaseEnti
      * @return
      */
     @PostMapping("deleteBatchIds")
-    public R<?> delete(@RequestBody List<String> ids) {
+    public R<?> delete(@RequestBody List<ID> ids) {
         getService().removeByIds(ids);
         return R.ok();
     }
@@ -250,11 +250,11 @@ public abstract class BaseController<ID extends Serializable, E extends BaseEnti
         }
 
         if (StringUtils.equals("AND", filter1)) {
-            String finalFilter_2 = filter2;
-            wrapper.and(w -> w.eq(column + finalFilter_2 + "{0}", val));
+            String finalfilter2 = filter2;
+            wrapper.and(w -> w.eq(column + finalfilter2 + "{0}", val));
         } else if (StringUtils.equals("OR", filter1)) {
-            String finalFilter_1 = filter2;
-            wrapper.or(w -> w.eq(column + finalFilter_1 + "{0}", val));
+            String finalfilter1 = filter2;
+            wrapper.or(w -> w.eq(column + finalfilter1 + "{0}", val));
         }
         return wrapper;
     }
@@ -320,7 +320,7 @@ public abstract class BaseController<ID extends Serializable, E extends BaseEnti
      */
     protected boolean getPageSort(HttpServletRequest request) {
         String sort = StringUtils.trim(request.getParameter(PAGE_SORT_PREFIX));
-        return StringUtils.isBlank(sort) || StringUtils.equals(sort.toLowerCase(), "desc") ? false : true;
+        return !StringUtils.isBlank(sort) && !StringUtils.equals(sort.toLowerCase(), "desc");
     }
 
     /**
