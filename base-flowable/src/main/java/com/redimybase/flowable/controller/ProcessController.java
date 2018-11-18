@@ -1,5 +1,6 @@
 package com.redimybase.flowable.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.redimybase.flowable.util.ModelUtils;
@@ -18,6 +19,7 @@ import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.image.impl.DefaultProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -122,6 +124,21 @@ public class ProcessController {
         variables.put("entTime", new Date());
         variables.put("reason", "回家有事");
         runtimeService.startProcessInstanceWithForm(processDefinition.getId(), "suiyi", variables, "formInstance");
+        return R.ok();
+    }
+
+
+    /**
+     * 启动流程
+     * @param key 流程
+     * @param formJson 表单json
+     */
+    @RequestMapping("startProcessInstance")
+    public R<?> startProcess(String key, String formJson) {
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey(key).singleResult();
+
+        Map formMap = JSONObject.parseObject(formJson, Map.class);
+        runtimeService.startProcessInstanceWithForm(processDefinition.getId(), "vim", formMap, "formInstance");
         return R.ok();
     }
 
