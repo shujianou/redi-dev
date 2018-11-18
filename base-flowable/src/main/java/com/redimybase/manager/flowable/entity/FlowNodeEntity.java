@@ -56,6 +56,11 @@ public class FlowNodeEntity extends IdEntity<String> {
     @TableField("parent_id")
     private String parentId;
 
+    /**
+     * 节点CODE
+     */
+    private String taskCode;
+
     public FlowNodeEntity() {
         this.id = IdWorker.getIdStr();
     }

@@ -100,6 +100,7 @@ public class SyncFlowCmd implements Command<Void> {
         nodeEntity = new FlowNodeEntity();
         nodeEntity.setName(element.getName());
         nodeEntity.setDefinitionId(defId);
+        nodeEntity.setTaskCode(element.getId());
         if (subProcessId != null) {
             //子流程ID不为null说明为子流程内的节点
             nodeEntity.setParentId(subProcessId);
