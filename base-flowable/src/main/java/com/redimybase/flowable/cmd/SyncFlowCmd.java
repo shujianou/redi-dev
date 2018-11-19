@@ -1,6 +1,7 @@
 package com.redimybase.flowable.cmd;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.redimybase.flowable.listener.impl.ConfigTaskUserListener;
 import com.redimybase.framework.listener.SpringContextListener;
 import com.redimybase.manager.flowable.entity.FlowFormEntity;
 import com.redimybase.manager.flowable.entity.FlowNodeEntity;
@@ -17,7 +18,9 @@ import org.flowable.bpmn.model.Process;
 import org.flowable.engine.ProcessEngineConfiguration;
 import org.flowable.engine.common.impl.interceptor.Command;
 import org.flowable.engine.common.impl.interceptor.CommandContext;
+import org.flowable.engine.delegate.TaskListener;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -151,6 +154,28 @@ public class SyncFlowCmd implements Command<Void> {
             userEntity.setSort(0);
             userEntity.setType(FlowUserEntity.Type.USER);
             userEntity.setValue(userTask.getAssignee());
+            userEntity.setNodeId(nodeId);
+
+            userService.save(userEntity);
+        }
+        List<String> tempUsers = userTask.getCandidateUsers();
+        if (null != tempUsers && tempUsers.size() > 0) {
+            FlowUserEntity userEntity = new FlowUserEntity();
+            userEntity.setSort(0);
+            userEntity.setType(FlowUserEntity.Type.USER);
+            userEntity.setValue(StringUtils.join(tempUsers));
+            userEntity.setNodeId(nodeId);
+
+            userService.save(userEntity);
+        }
+
+        //配置用户组
+        tempUsers = userTask.getCandidateGroups();
+        if (null != tempUsers && tempUsers.size() > 0) {
+            FlowUserEntity userEntity = new FlowUserEntity();
+            userEntity.setSort(0);
+            userEntity.setType(FlowUserEntity.Type.USER_GROUP);
+            userEntity.setValue(StringUtils.join(tempUsers));
             userEntity.setNodeId(nodeId);
 
             userService.save(userEntity);
