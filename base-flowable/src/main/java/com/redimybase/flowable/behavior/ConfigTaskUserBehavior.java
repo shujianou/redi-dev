@@ -8,6 +8,10 @@ import com.redimybase.manager.flowable.entity.FlowUserEntity;
 import com.redimybase.manager.flowable.service.FlowDefinitionService;
 import com.redimybase.manager.flowable.service.FlowNodeService;
 import com.redimybase.manager.flowable.service.FlowUserService;
+import com.redimybase.manager.security.entity.UserRoleEntity;
+import com.redimybase.manager.security.service.RoleService;
+import com.redimybase.manager.security.service.UserRoleService;
+import com.redimybase.security.utils.SecurityUtil;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.common.impl.el.ExpressionManager;
 import org.flowable.engine.delegate.DelegateExecution;
@@ -20,6 +24,7 @@ import java.util.List;
 /**
  * 任务节点创建前配置审批人
  * Created by Vim 2018/11/19 16:39
+ *
  * @author Vim
  */
 public class ConfigTaskUserBehavior extends UserTaskActivityBehavior {
@@ -29,20 +34,52 @@ public class ConfigTaskUserBehavior extends UserTaskActivityBehavior {
     }
 
     @Override
+    public void execute(DelegateExecution execution) {
+        super.execute(execution);
+    }
+
+    @Override
     protected void handleAssignments(TaskService taskService, String assignee, String owner, List<String> candidateUsers, List<String> candidateGroups, TaskEntity task, ExpressionManager expressionManager, DelegateExecution execution) {
         String processDefId = task.getProcessDefinitionId();
-        String taskId = task.getId();
+        String taskDefinitionKey = task.getTaskDefinitionKey();
 
         FlowDefinitionService flowDefinitionService = SpringContextListener.getBean(FlowDefinitionService.class);
         FlowNodeService flowNodeService = SpringContextListener.getBean(FlowNodeService.class);
         FlowUserService flowUserService = SpringContextListener.getBean(FlowUserService.class);
+        UserRoleService userRoleService = SpringContextListener.getBean(UserRoleService.class);
 
         FlowDefinitionEntity definitionId = flowDefinitionService.getOne(new QueryWrapper<FlowDefinitionEntity>().eq("flow_definition_id", processDefId).select("id"));
-        FlowNodeEntity nodeId = flowNodeService.getOne(new QueryWrapper<FlowNodeEntity>().eq("definition_id", definitionId.getId()).eq("task_code", taskId).select("id"));
+        FlowNodeEntity nodeId = flowNodeService.getOne(new QueryWrapper<FlowNodeEntity>().eq("definition_id", definitionId.getId()).eq("task_code", taskDefinitionKey).select("id"));
         List<FlowUserEntity> flowUserEntities = flowUserService.list(new QueryWrapper<FlowUserEntity>().eq("node_id", nodeId.getId()));
 
         for (FlowUserEntity flowUserEntity : flowUserEntities) {
-            task.addCandidateUser(flowUserEntity.getValue());
+            switch (flowUserEntity.getType()) {
+                case FlowUserEntity.Type.INITIATOR:
+                    assignee = task.getOwner();
+                    break;
+                case FlowUserEntity.Type.USER:
+                    assignee = flowUserEntity.getValue();
+                    break;
+                case FlowUserEntity.Type.USER_GROUP:
+                    List<UserRoleEntity> userRoleEntities = userRoleService.list(new QueryWrapper<UserRoleEntity>().eq("role_id", flowUserEntity.getValue()).select("user_id"));
+                    for (UserRoleEntity userRoleEntity : userRoleEntities) {
+                        task.addCandidateUser(userRoleEntity.getUserId());
+                    }
+                    break;
+                case FlowUserEntity.Type.ORTHER_NODE:
+                case FlowUserEntity.Type.FROM_FORM:
+                    //来自节点或表单用户
+                    task.addCandidateUser(flowUserEntity.getValue());
+                    break;
+
+                case FlowUserEntity.Type.LEADERSHIP:
+                    //上级领导
+                    break;
+                default:
+                    break;
+            }
+
+
         }
 
         super.handleAssignments(taskService, assignee, owner, candidateUsers, candidateGroups, task, expressionManager, execution);

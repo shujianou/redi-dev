@@ -31,7 +31,7 @@
 
         <property name="jdbcUsername" value="root"/>
 
-        <property name="jdbcPassword" value=""/>
+        <property name="jdbcPassword" value="1234"/>
 
     </bean>
 </beans>

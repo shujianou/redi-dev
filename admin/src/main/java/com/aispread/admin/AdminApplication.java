@@ -1,6 +1,7 @@
 package com.aispread.admin;
 
 import org.flowable.engine.TaskService;
+import org.flowable.spring.boot.ProcessEngineAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
                 org.flowable.spring.boot.SecurityAutoConfiguration.class,   //过滤flowable自带的spring security
                 org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,    //过滤flowable自带的spring security
                 UserDetailsServiceAutoConfiguration.class,  //过滤flowable自带的spring security
-                LiquibaseAutoConfiguration.class
+                LiquibaseAutoConfiguration.class,
+                ProcessEngineAutoConfiguration.class    //降低flowable自动配置类权重让子类覆盖的方法优先执行
         }
 
 )
