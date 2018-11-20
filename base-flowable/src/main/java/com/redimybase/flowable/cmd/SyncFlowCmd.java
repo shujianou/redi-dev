@@ -6,12 +6,15 @@ import com.redimybase.framework.listener.SpringContextListener;
 import com.redimybase.manager.flowable.entity.FlowFormEntity;
 import com.redimybase.manager.flowable.entity.FlowNodeEntity;
 import com.redimybase.manager.flowable.entity.FlowUserEntity;
+import com.redimybase.manager.flowable.entity.FlowVarEntity;
 import com.redimybase.manager.flowable.service.FlowFormService;
 import com.redimybase.manager.flowable.service.FlowNodeService;
 import com.redimybase.manager.flowable.service.FlowUserService;
+import com.redimybase.manager.flowable.service.FlowVarService;
 import com.redimybase.manager.flowable.service.impl.FlowFormServiceImpl;
 import com.redimybase.manager.flowable.service.impl.FlowNodeServiceImpl;
 import com.redimybase.manager.flowable.service.impl.FlowUserServiceImpl;
+import lombok.experimental.var;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.model.*;
 import org.flowable.bpmn.model.Process;
@@ -36,6 +39,7 @@ public class SyncFlowCmd implements Command<Void> {
         nodeService = SpringContextListener.getBean(FlowNodeServiceImpl.class);
         formService = SpringContextListener.getBean(FlowFormServiceImpl.class);
         userService = SpringContextListener.getBean(FlowUserServiceImpl.class);
+        varService = SpringContextListener.getBean(FlowVarService.class);
     }
 
     @Override
@@ -67,6 +71,7 @@ public class SyncFlowCmd implements Command<Void> {
         for (FlowNodeEntity node : list) {
             formService.remove(new QueryWrapper<FlowFormEntity>().eq("node_id", node.getId()));
             userService.remove(new QueryWrapper<FlowUserEntity>().eq("node_id", node.getId()));
+            varService.remove(new QueryWrapper<FlowVarEntity>().eq("node_id", node.getId()));
             nodeService.removeById(node.getId());
         }
     }
@@ -200,5 +205,7 @@ public class SyncFlowCmd implements Command<Void> {
     private FlowFormService formService;
 
     private FlowUserService userService;
+
+    private FlowVarService varService;
 
 }

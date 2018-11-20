@@ -1,6 +1,6 @@
 package com.redimybase.flowable.parser.factory;
 
-import com.redimybase.flowable.behavior.ConfigTaskUserBehavior;
+import com.redimybase.flowable.behavior.ConfigUserTaskBehavior;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.flowable.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
@@ -14,6 +14,6 @@ public class ConfigTaskUserActivityBehaviorFactory extends DefaultActivityBehavi
 
     @Override
     public UserTaskActivityBehavior createUserTaskActivityBehavior(UserTask userTask) {
-        return new ConfigTaskUserBehavior(userTask);
+        return new ConfigUserTaskBehavior(userTask);
     }
 }
