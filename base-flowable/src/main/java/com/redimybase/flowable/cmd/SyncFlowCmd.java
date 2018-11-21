@@ -1,7 +1,7 @@
 package com.redimybase.flowable.cmd;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.redimybase.flowable.listener.impl.ConfigTaskUserListener;
+import com.redimybase.flowable.listener.task.impl.ConfigTaskUserListener;
 import com.redimybase.framework.listener.SpringContextListener;
 import com.redimybase.manager.flowable.entity.FlowFormEntity;
 import com.redimybase.manager.flowable.entity.FlowNodeEntity;
@@ -14,16 +14,13 @@ import com.redimybase.manager.flowable.service.FlowVarService;
 import com.redimybase.manager.flowable.service.impl.FlowFormServiceImpl;
 import com.redimybase.manager.flowable.service.impl.FlowNodeServiceImpl;
 import com.redimybase.manager.flowable.service.impl.FlowUserServiceImpl;
-import lombok.experimental.var;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.model.*;
 import org.flowable.bpmn.model.Process;
 import org.flowable.engine.ProcessEngineConfiguration;
 import org.flowable.engine.common.impl.interceptor.Command;
 import org.flowable.engine.common.impl.interceptor.CommandContext;
-import org.flowable.engine.delegate.TaskListener;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

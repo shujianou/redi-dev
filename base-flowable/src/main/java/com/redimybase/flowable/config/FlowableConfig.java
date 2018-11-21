@@ -1,8 +1,10 @@
 package com.redimybase.flowable.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.redimybase.flowable.listener.autocomplete.AutoCompleteFirstTaskListener;
 import com.redimybase.flowable.parser.factory.ConfigTaskUserActivityBehaviorFactory;
 import org.flowable.app.properties.FlowableModelerAppProperties;
+import org.flowable.engine.common.api.delegate.event.FlowableEventListener;
 import org.flowable.job.service.impl.asyncexecutor.AsyncExecutor;
 import org.flowable.spring.ProcessEngineFactoryBean;
 import org.flowable.spring.SpringProcessEngineConfiguration;
@@ -20,6 +22,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * flowable配置
@@ -37,6 +41,7 @@ public class FlowableConfig extends ProcessEngineAutoConfiguration {
                           FlowableMailProperties mailProperties) {
         super(flowableProperties, processProperties, idmProperties, mailProperties);
     }
+
     @Override
     @Bean
     public SpringProcessEngineConfiguration springProcessEngineConfiguration(DataSource dataSource, PlatformTransactionManager platformTransactionManager,
@@ -48,8 +53,14 @@ public class FlowableConfig extends ProcessEngineAutoConfiguration {
     @Bean
     @Override
     public ProcessEngineFactoryBean processEngine(SpringProcessEngineConfiguration configuration) throws Exception {
-        //注入配置用户行为工厂配置
+        //注入配置用户任务行为工厂配置
         configuration.setActivityBehaviorFactory(configTaskUserActivityBehaviorFactory());
+
+        //注入全局监听
+        List<FlowableEventListener> eventListeners = new ArrayList<>();
+        //自动完成首个任务监听器
+        eventListeners.add(new AutoCompleteFirstTaskListener());
+        configuration.setEventListeners(eventListeners);
         return super.processEngine(configuration);
     }
 

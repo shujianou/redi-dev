@@ -36,4 +36,12 @@ public interface ProcessHandleService {
     public Page<?> listDeployed(Page page);
 
 
+    /**
+     * 转办任务
+     * @param taskId 任务ID
+     * @param userId 转办用户ID
+     */
+    public void transfer(String taskId,String userId);
+
+
 }

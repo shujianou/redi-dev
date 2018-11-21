@@ -136,7 +136,6 @@ public class ProcessController {
     @RequestMapping("startProcessInstance")
     public R<?> startProcess(String key, String formJson) {
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionKey(key).latestVersion().singleResult();
-
         Map formMap = JSONObject.parseObject(formJson, Map.class);
         runtimeService.startProcessInstanceWithForm(processDefinition.getId(), "vim", formMap, "formInstance");
         return R.ok();
