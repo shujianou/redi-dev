@@ -31,16 +31,6 @@ import java.io.IOException;
 @EnableConfigurationProperties(FlowableProperties.class)
 public class FlowableConfig extends ProcessEngineAutoConfiguration {
 
- /*   @Bean
-    public StandaloneProcessEngineConfiguration standaloneProcessEngineConfiguration(DruidDataSource dataSources, ConfigTaskUserActivityBehaviorFactory configTaskUserActivityBehaviorFactory) {
-        StandaloneProcessEngineConfiguration configuration = new StandaloneProcessEngineConfiguration();
-        configuration.setActivityBehaviorFactory(configTaskUserActivityBehaviorFactory);
-        configuration.setDataSource(dataSources);
-        configuration.setDatabaseType("mysql");
-        configuration.setDatabaseSchemaUpdate("true");
-        return configuration;
-    }
-*/
 
     public FlowableConfig(FlowableProperties flowableProperties,
                           FlowableProcessProperties processProperties, FlowableIdmProperties idmProperties,
