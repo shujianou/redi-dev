@@ -44,4 +44,23 @@ public interface ProcessHandleService {
     public void transfer(String taskId,String userId);
 
 
+    /**
+     * 与任务审批人沟通
+     * @param taskId 任务ID
+     * @param userId 审批人ID
+     * @param noticeType 沟通类型
+     */
+    public void linkup(String taskId,String userId,String noticeType);
+
+    /**
+     * 终止任务
+     * @param taskId 任务ID
+     */
+    public void stopTask(String taskId);
+
+    /**
+     * 恢复任务
+     * @param taskId 任务ID
+     */
+    public void recoveryTask(String taskId);
 }

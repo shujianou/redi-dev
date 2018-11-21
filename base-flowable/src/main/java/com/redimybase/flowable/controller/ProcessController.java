@@ -3,6 +3,7 @@ package com.redimybase.flowable.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.redimybase.flowable.service.ProcessHandleService;
 import com.redimybase.flowable.util.ModelUtils;
 import com.redimybase.framework.bean.R;
 import com.redimybase.framework.exception.BusinessException;
@@ -165,6 +166,31 @@ public class ProcessController {
         return R.ok();
     }
 
+
+    /**
+     * 终止任务
+     * @param taskId 任务ID
+     */
+    @PostMapping("stopTask")
+    public R<?> stopTask(String taskId) {
+        processHandleService.stopTask(taskId);
+        return R.ok();
+    }
+
+    /**
+     * 恢复任务
+     * @param taskId 任务ID
+     */
+    @PostMapping("recoveryTask")
+    public R<?> recoveryTask(String taskId) {
+        processHandleService.recoveryTask(taskId);
+        return R.ok();
+    }
+
+
+
+    @Autowired
+    private ProcessHandleService processHandleService;
 
     @Autowired
     private RuntimeService runtimeService;

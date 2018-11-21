@@ -7,6 +7,7 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.task.api.DelegationState;
+import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,8 +66,25 @@ public class ProcessHandleServiceImpl implements ProcessHandleService {
 
     @Override
     public void transfer(String taskId, String userId) {
-        log.debug("{}");
+        log.debug("[转办任务] - taskId:{},userId:{}", taskId, userId);
         taskService.setAssignee(taskId, userId);
+    }
+
+    @Override
+    public void linkup(String taskId, String userId, String noticeType) {
+        //TODO 任务监控沟通
+    }
+
+    @Override
+    public void stopTask(String taskId) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        runtimeService.suspendProcessInstanceById(task.getProcessInstanceId());
+    }
+
+    @Override
+    public void recoveryTask(String taskId) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        runtimeService.activateProcessInstanceById(task.getProcessInstanceId());
     }
 
 
