@@ -18,9 +18,4 @@ public class SecurityUtils {
         return MD5.getInstance().getMD5to32(salt + pwd);
     }
 
-
-    public static void main(String[] args) throws Exception {
-        System.out.println(encryptPwd("123456","anly"));
-    }
-
 }

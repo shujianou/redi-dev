@@ -30,7 +30,7 @@ public class ResourceEntity extends IdEntity<String> {
     /**
      * 资源KEY
      */
-    @TableField("key")
+    @TableField("resource_key")
     private String key;
     /**
      * 资源名称
@@ -61,7 +61,7 @@ public class ResourceEntity extends IdEntity<String> {
      * 创建人ID
      */
     @TableField("creator_id")
-    private Long creatorId;
+    private String creatorId;
     /**
      * 创建人
      */
@@ -71,7 +71,7 @@ public class ResourceEntity extends IdEntity<String> {
      * 最后修改人ID
      */
     @TableField("reviser_id")
-    private Long reviserId;
+    private String reviserId;
     /**
      * 最后修改人
      */

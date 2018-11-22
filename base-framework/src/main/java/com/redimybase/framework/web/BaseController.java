@@ -415,13 +415,13 @@ public abstract class BaseController<ID extends Serializable, E extends BaseEnti
     /**
      * 前置删除
      */
-    public void beforeDelete(Serializable id) {
+    public void beforeDelete(ID id) {
     }
 
     /**
      * 后置删除
      */
-    public void afterDelete(Serializable id) {
+    public void afterDelete(ID id) {
     }
 
     protected abstract S getService();

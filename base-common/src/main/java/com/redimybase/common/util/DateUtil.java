@@ -314,9 +314,5 @@ public class DateUtil {
 		return Timestamp.valueOf(datestr);
 	}
 
-	public static void main(String[] args) {
-		System.out.println(getTime(new Date()));
-		System.out.println(getAfterDayWeek("3"));
-	}
 
 }

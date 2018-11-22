@@ -6,7 +6,7 @@
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
     <select id="getResKeyList" resultType="java.lang.String" parameterType="string" useCache="false">
-        select distinct res.key from t_resource res join t_role_resource rr on rr.resource_id=res.id join t_user_role ur on ur.role_id=rr.role_id and ur.user_id=#{userId,jdbcType=VARCHAR}
+        select distinct res.resource_key from t_resource res join t_role_resource rr on rr.resource_id=res.id join t_user_role ur on ur.role_id=rr.role_id and ur.user_id=#{userId,jdbcType=VARCHAR}
     </select>
     <select id="getResNameList" resultType="java.lang.String" parameterType="string" useCache="false">
         select distinct res.name from t_resource res join t_role_resource rr on rr.resource_id=res.id join t_user_role ur on ur.role_id=rr.id and ur.user_id=#{userId,jdbcType=VARCHAR}

@@ -55,10 +55,6 @@ public class SecurityUtil {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        System.out.println(encryptPwd("123456","anly"));
-    }
-
 
     private static UserService getUserService() {
         return SpringContextListener.getBean(UserService.class);
