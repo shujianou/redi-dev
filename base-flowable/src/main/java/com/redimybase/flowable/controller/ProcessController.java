@@ -196,6 +196,17 @@ public class ProcessController {
     }
 
 
+    /**
+     * 任务自由跳转
+     * @param taskId 任务ID
+     * @param targetElementId 目标节点ID
+     */
+    @PostMapping("jump")
+    public R<?> jumpTask(String taskId, String targetElementId) {
+        processHandleService.jumpTask(taskId, targetElementId);
+        return R.ok();
+    }
+
 
     @Autowired
     private ProcessHandleService processHandleService;
