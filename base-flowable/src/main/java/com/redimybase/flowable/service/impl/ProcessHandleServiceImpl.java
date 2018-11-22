@@ -1,8 +1,10 @@
 package com.redimybase.flowable.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.redimybase.flowable.cmd.JumpTaskCmd;
 import com.redimybase.flowable.service.ProcessHandleService;
 import lombok.extern.slf4j.Slf4j;
+import org.flowable.engine.ManagementService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -88,6 +90,11 @@ public class ProcessHandleServiceImpl implements ProcessHandleService {
     }
 
 
+    @Override
+    public void jumpTask(String taskId, String targetElementId) {
+        managementService.executeCommand(new JumpTaskCmd(targetElementId, taskId));
+    }
+
     @Autowired
     private RuntimeService runtimeService;
 
@@ -96,4 +103,7 @@ public class ProcessHandleServiceImpl implements ProcessHandleService {
 
     @Autowired
     private RepositoryService repositoryService;
+
+    @Autowired
+    private ManagementService managementService;
 }

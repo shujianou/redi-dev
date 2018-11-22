@@ -143,7 +143,7 @@ public class ProcessController {
     }
 
     /**
-     * 完成任务
+     * 直接完成完成任务
      *
      * @param taskId 任务ID
      */
@@ -166,6 +166,14 @@ public class ProcessController {
         return R.ok();
     }
 
+    /**
+     * 签收任务(从组任务里面签收)
+     */
+    @PostMapping("claim")
+    public R<?> claim(String userId,String taskId) {
+        taskService.claim(taskId, userId);
+        return R.ok();
+    }
 
     /**
      * 终止任务

@@ -31,7 +31,7 @@ public class ResourceEntity extends IdEntity<String> {
      * 资源KEY
      */
     @TableField("resource_key")
-    private String key;
+    private String resourceKey;
     /**
      * 资源名称
      */

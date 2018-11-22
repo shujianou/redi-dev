@@ -7,7 +7,6 @@ import com.redimybase.framework.web.TableController;
 import com.redimybase.manager.security.entity.ResourceEntity;
 import com.redimybase.manager.security.entity.UserEntity;
 import com.redimybase.manager.security.mapper.ResourceMapper;
-import com.redimybase.manager.security.service.ResourceService;
 import com.redimybase.manager.security.service.impl.ResourceServiceImpl;
 import com.redimybase.security.utils.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -43,7 +41,7 @@ public class ResourceController extends TableController<String, ResourceEntity, 
         }
         if (StringUtils.isBlank(entity.getId())) {
             //key相同不添加
-            if (service.count(new QueryWrapper<ResourceEntity>().eq("resource_key", entity.getKey())) > 0) {
+            if (service.count(new QueryWrapper<ResourceEntity>().eq("resource_key", entity.getResourceKey())) > 0) {
                 throw new BusinessException(R.失败, "菜单key已存在");
             }
             entity.setCreateTime(new Date());

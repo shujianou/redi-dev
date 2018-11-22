@@ -63,4 +63,11 @@ public interface ProcessHandleService {
      * @param taskId 任务ID
      */
     public void recoveryTask(String taskId);
+
+    /**
+     * 任务自由跳转
+     * @param taskId 任务ID
+     * @param targetElementId 目标节点ID
+     */
+    public void jumpTask(String taskId, String targetElementId);
 }
