@@ -25,23 +25,4 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
-
-    @Override
-    public void move(String sourceOrgId, String targetOrgId) {
-        OrgEntity orgEntity = new OrgEntity();
-        orgEntity.setParentId(targetOrgId);
-        orgService.update(orgEntity, new QueryWrapper<OrgEntity>().eq("id", sourceOrgId));
-    }
-
-
-    @Override
-    public void move(String targetOrgId, List<String> userIdList) {
-
-    }
-
-    @Autowired
-    private UserOrgService userOrgService;
-
-    @Autowired
-    private OrgService orgService;
 }

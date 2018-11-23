@@ -82,6 +82,11 @@ public class FlowDefinitionEntity extends IdEntity<String> {
      */
     @TableField("flow_definition_version")
     private String flowDefinitionVersion;
+
+    /**
+     * 是否完成第一个任务(0:否,1:是)
+     */
+    private Boolean completeFirstTask;
     /**
      * 创建时间
      */

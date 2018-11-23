@@ -1,6 +1,9 @@
 package com.redimybase.flowable.listener.autocomplete;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.redimybase.framework.listener.SpringContextListener;
+import com.redimybase.manager.flowable.entity.FlowDefinitionEntity;
+import com.redimybase.manager.flowable.service.FlowDefinitionService;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.FlowElement;
 import org.flowable.bpmn.model.StartEvent;
@@ -21,6 +24,7 @@ import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 public class AutoCompleteFirstTaskListener implements FlowableEventListener {
     @Override
     public void onEvent(FlowableEvent event) {
+
         if (!(event instanceof FlowableEntityEventImpl)) {
             return;
         }
@@ -38,6 +42,10 @@ public class AutoCompleteFirstTaskListener implements FlowableEventListener {
 
         //是否是在任务节点创建时
         if (FlowableEngineEventType.TASK_CREATED.equals(event.getType())) {
+            //是否开启自动完成首个任务
+            if (!isAutoCompleteFirstTask(taskEntity)) {
+                return;
+            }
             //找到流程第一个userTask节点
             FlowElement firstElement = this.findFirstFlowElement(taskEntity);
 
@@ -47,6 +55,19 @@ public class AutoCompleteFirstTaskListener implements FlowableEventListener {
             }
         }
 
+    }
+
+
+    /**
+     * 是否开启自动完成首个任务
+     */
+    private boolean isAutoCompleteFirstTask(TaskEntity taskEntity) {
+        FlowDefinitionService flowDefinitionService = SpringContextListener.getBean(FlowDefinitionService.class);
+
+        //找到当前流程定义拓展信息
+        FlowDefinitionEntity currentFlowDefinition = flowDefinitionService.getOne(new QueryWrapper<FlowDefinitionEntity>().eq("flow_definition_id", taskEntity.getProcessDefinitionId()).select("complete_first_task"));
+
+        return currentFlowDefinition.getCompleteFirstTask();
     }
 
     /**
