@@ -73,7 +73,7 @@ public class UserEntity extends IdEntity<String> {
      * 创建用户ID
      */
     @TableField("creator_id")
-    private Long creatorId;
+    private String creatorId;
     /**
      * 创建用户
      */
@@ -83,12 +83,12 @@ public class UserEntity extends IdEntity<String> {
      * 最后更新用户ID
      */
     @TableField("reviser_id")
-    private Long reviserId;
+    private String reviserId;
     /**
      * 最后更新用户
      */
-    @TableField("reviser_user")
-    private String reviserUser;
+    @TableField("reviser")
+    private String reviser;
     /**
      * 状态(0:删除,1:启用,2:禁用)
      */
@@ -114,5 +114,12 @@ public class UserEntity extends IdEntity<String> {
     @Override
     public void setId(String s) {
         this.id=s;
+    }
+
+
+    public static  class Status{
+        public static final String DELETED = "0";
+        public static final String ENABLE = "1";
+        public static final String DISABLE = "2";
     }
 }

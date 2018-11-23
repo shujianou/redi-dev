@@ -1,10 +1,19 @@
 package com.redimybase.manager.security.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.redimybase.manager.security.entity.OrgEntity;
 import com.redimybase.manager.security.entity.UserEntity;
+import com.redimybase.manager.security.entity.UserOrgEntity;
 import com.redimybase.manager.security.mapper.UserMapper;
+import com.redimybase.manager.security.service.OrgService;
+import com.redimybase.manager.security.service.UserOrgService;
 import com.redimybase.manager.security.service.UserService;
+import org.apache.commons.collections.ListUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +26,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
 
+    @Override
+    public void move(String sourceOrgId, String targetOrgId) {
+        OrgEntity orgEntity = new OrgEntity();
+        orgEntity.setParentId(targetOrgId);
+        orgService.update(orgEntity, new QueryWrapper<OrgEntity>().eq("id", sourceOrgId));
+    }
+
+
+    @Override
+    public void move(String targetOrgId, List<String> userIdList) {
+
+    }
+
+    @Autowired
+    private UserOrgService userOrgService;
+
+    @Autowired
+    private OrgService orgService;
 }

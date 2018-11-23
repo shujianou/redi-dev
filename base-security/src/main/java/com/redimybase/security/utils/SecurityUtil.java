@@ -1,6 +1,8 @@
 package com.redimybase.security.utils;
 
 import com.redimybase.common.util.MD5;
+import com.redimybase.framework.bean.R;
+import com.redimybase.framework.exception.BusinessException;
 import com.redimybase.framework.listener.SpringContextListener;
 import com.redimybase.manager.security.entity.UserEntity;
 import com.redimybase.manager.security.service.UserService;
@@ -32,6 +34,7 @@ public class SecurityUtil {
 
     /**
      * 获取当前登录用户信息
+     *
      * @return
      */
     public static UserEntity getCurrentUser() {
@@ -53,7 +56,6 @@ public class SecurityUtil {
     public static String encryptPwd(String pwd, String salt) throws Exception {
         return MD5.getInstance().getMD5to32(salt + pwd);
     }
-
 
 
     private static UserService getUserService() {

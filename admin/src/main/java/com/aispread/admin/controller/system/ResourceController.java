@@ -1,4 +1,4 @@
-package com.aispread.admin.controller.resource;
+package com.aispread.admin.controller.system;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.redimybase.framework.bean.R;
@@ -21,6 +21,7 @@ import java.util.Date;
 /**
  * 资源管理
  * Created by Irany 2018/6/15 23:21
+ * @author irany
  */
 @RestController
 @RequestMapping(value = "resource")
