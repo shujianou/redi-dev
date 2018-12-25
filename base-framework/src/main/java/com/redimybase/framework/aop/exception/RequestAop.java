@@ -1,7 +1,6 @@
 package com.redimybase.framework.aop.exception;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
-import com.redimybase.framework.bean.R;
+import com.redimybase.common.framework.bean.R;
 import com.redimybase.framework.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationException;

@@ -1,10 +1,10 @@
 package com.redimybase.security.shiro;
 
-import com.redimybase.security.shiro.constant.SecurityConst;
-import com.redimybase.security.shiro.dao.UserCheckDao;
+import com.aispread.service.api.security.UserCheckApi;
+import com.aispread.manager.security.constant.SecurityConst;
 import com.redimybase.security.shiro.token.UserCaptchaToken;
-import com.redimybase.security.shiro.token.UserToken;
-import com.redimybase.security.utils.SecurityUtil;
+import com.aispread.manager.security.token.UserToken;
+import com.redimybase.security.shiro.utils.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -17,13 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 
 /**
  * Created by Irany 2018/5/13 12:10
  */
 @Component
-@PropertySource(value = {"classpath:application.properties"},encoding="utf-8")
+@PropertySource(value = {"classpath:application.properties"}, encoding = "utf-8")
 public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -33,7 +34,7 @@ public class ShiroRealm extends AuthorizingRealm {
             return null;
         }
 
-        UserToken sysUser = userCheckDao.getByUserId(userId);
+        UserToken sysUser = userCheckApi.getByUserId(userId);
 
         if (sysUser == null) {
             return null;
@@ -42,10 +43,10 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
         // 获取用户拥有的角色
-        authorizationInfo.addRoles(userCheckDao.getRoleNameList(userId));
+        authorizationInfo.addRoles(userCheckApi.getRoleNameList(userId));
 
         // 获取用户拥有的资源
-        authorizationInfo.addStringPermissions(userCheckDao.getResKeyList(userId));
+        authorizationInfo.addStringPermissions(userCheckApi.getResKeyList(userId));
 
         return authorizationInfo;
     }
@@ -56,7 +57,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String captcha = null;
         String clientCode = null;
 
-        if (StringUtils.equals(useCaptcha,"1")) {
+        if (StringUtils.equals(useCaptcha, "1")) {
             if (token instanceof UserCaptchaToken) {
                 captcha = ((UserCaptchaToken) token).getCaptcha();
                 clientCode = ((UserCaptchaToken) token).getClientCode();
@@ -82,23 +83,26 @@ public class ShiroRealm extends AuthorizingRealm {
             }
         }
 
-        String username = usernamePasswordToken.getUsername();
+        String account = usernamePasswordToken.getUsername();
         String password = new String(usernamePasswordToken.getPassword());
         String md5PWD = password;
 
-        if (StringUtils.equals(useSalt,"1")) {
-            try {
-                md5PWD = SecurityUtil.encryptPwd(password, username);
-            } catch (Exception e) {
-                logger.error("验证用户时对用户密码进行MD5加密失败", e);
-                throw new AuthenticationException(SecurityConst.用户登录校验失败);
-            }
+        if (StringUtils.equals(useSalt, "1")) {
+            //TODO 加盐
         }
 
-        UserToken userToken = userCheckDao.getUserToken(username, md5PWD);
+        try {
+            md5PWD = SecurityUtil.encryptPwd(password, account);
+        } catch (Exception e) {
+            logger.error("验证用户时对用户密码进行MD5加密失败", e);
+            throw new AuthenticationException(SecurityConst.用户登录校验失败);
+        }
+        UserToken userToken = new UserToken(account, md5PWD);
+        userToken = userCheckApi.getUserToken(userToken);
 
         if (userToken == null) {
-            userToken = userCheckDao.getUserToken(username, password);
+            userToken = new UserToken(account, password);
+            userToken = userCheckApi.getUserToken(userToken);
 
             if (userToken == null) {
                 throw new AuthenticationException(SecurityConst.用户登录校验失败);
@@ -113,6 +117,7 @@ public class ShiroRealm extends AuthorizingRealm {
         return new SimpleAuthenticationInfo(userToken.getUserId(), password, getName());
     }
 
+    @Override
     protected Object getAvailablePrincipal(PrincipalCollection principalCollection) {
         Object primary = null;
         if (!org.apache.shiro.util.CollectionUtils.isEmpty(principalCollection)) {
@@ -136,6 +141,6 @@ public class ShiroRealm extends AuthorizingRealm {
     public String useSalt;
 
     @Autowired
-    private UserCheckDao userCheckDao;
+    private UserCheckApi userCheckApi;
     private Logger logger = LoggerFactory.getLogger(getClass());
 }

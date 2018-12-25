@@ -1,7 +1,7 @@
 package com.redimybase.flowable.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.redimybase.framework.bean.R;
+import com.redimybase.common.framework.bean.R;
 import com.redimybase.framework.web.TableController;
 import com.redimybase.manager.flowable.entity.FlowNoticeEntity;
 import com.redimybase.manager.flowable.mapper.FlowNoticeMapper;

@@ -25,6 +25,20 @@
     </properties>
 
     <dependencies>
+        <!--spring-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <!--spring-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -45,7 +59,17 @@
         </dependency>
         <!--shiro-->
 
+        <!--aispread-->
+        <dependency>
+            <groupId>com.aispread.service.api.security</groupId>
+            <artifactId>security-api</artifactId>
+        </dependency>
+        <!--aispread-->
         <!--redimybase-->
+        <dependency>
+            <groupId>com.redimybase</groupId>
+            <artifactId>manager</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.redimybase.common</groupId>
             <artifactId>base-common</artifactId>

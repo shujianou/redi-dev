@@ -1,6 +1,5 @@
 package com.redimybase.security.shiro.token;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.shiro.authc.UsernamePasswordToken;

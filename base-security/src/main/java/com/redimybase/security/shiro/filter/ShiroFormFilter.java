@@ -1,7 +1,7 @@
 package com.redimybase.security.shiro.filter;
 
-import com.redimybase.security.shiro.dao.UserCheckDao;
-import com.redimybase.security.shiro.token.UserToken;
+import com.aispread.service.api.security.UserCheckApi;
+import com.aispread.manager.security.token.UserToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -50,7 +50,7 @@ public class ShiroFormFilter extends FormAuthenticationFilter {
             String userId = (String) subject.getPrincipal();
 
             if (StringUtils.isNotEmpty(userId)) {
-                UserToken token = userCheckDao.getByUserId(userId);
+                UserToken token = userCheckApi.getByUserId(userId);
 
                 if (token != null && token.isEnabled()) {
                     subject.login(new UsernamePasswordToken(token.getAccount(), token.getPassword(), true));
@@ -63,5 +63,5 @@ public class ShiroFormFilter extends FormAuthenticationFilter {
 
 
     @Autowired
-    private UserCheckDao userCheckDao;
+    private UserCheckApi userCheckApi;
 }

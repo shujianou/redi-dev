@@ -1,12 +1,10 @@
 package com.redimybase.flowable.xform;
 
 import com.alibaba.fastjson.JSONObject;
-import com.redimybase.common.util.SecurityUtils;
 import com.redimybase.flowable.xform.keyvalue.Prop;
 import com.redimybase.flowable.xform.keyvalue.Record;
-import com.redimybase.manager.security.entity.UserEntity;
-import com.redimybase.manager.security.service.UserService;
-import com.redimybase.security.utils.SecurityUtil;
+import com.aispread.manager.security.entity.UserEntity;
+import com.redimybase.security.shiro.utils.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

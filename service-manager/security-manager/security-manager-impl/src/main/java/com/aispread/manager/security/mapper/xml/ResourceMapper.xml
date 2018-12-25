@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aispread.manager.security.mapper.ResourceMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <select id="getResKeyList" resultType="java.lang.String" parameterType="string" useCache="false">
+        select distinct res.resource_key from t_resource res join t_role_resource rr on rr.resource_id=res.id join t_user_role ur on ur.role_id=rr.role_id and ur.user_id=#{userId,jdbcType=VARCHAR}
+    </select>
+    <select id="getResNameList" resultType="java.lang.String" parameterType="string" useCache="false">
+        select distinct res.name from t_resource res join t_role_resource rr on rr.resource_id=res.id join t_user_role ur on ur.role_id=rr.id and ur.user_id=#{userId,jdbcType=VARCHAR}
+    </select>
+    <select id="getResourceByUserId" resultType="com.aispread.manager.security.entity.ResourceEntity" parameterType="string" useCache="false">
+        select distinct res.id as id,res.name,res.parent_id,res.configure,res.type,res.sort,res.creator_id,res.creator,res.reviser_id,res.reviser,res.create_time,res.update_time from t_resource res join t_role_resource rr on rr.resource_id=res.id join t_user_role ur on ur.role_id=rr.role_id and ur.user_id=#{userId,jdbcType=VARCHAR} and TYPE=1
+    </select>
+
+
+    <select id="resourceTreeList" resultType="com.redimybase.framework.model.datamodel.ztree.Ztree">
+         SELECT
+        m1.id AS id,
+        (
+        CASE
+        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
+        0
+        ELSE
+        m2.id
+        END
+        ) AS pId,
+        m1. NAME
+        AS NAME,
+        (
+        CASE
+        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
+        'true'
+        ELSE
+        'false'
+        END
+        ) as 'open'
+        FROM
+        t_resource m1
+        LEFT join t_resource m2 ON m1.PARENT_ID = m2.ID
+        ORDER BY
+        m1.id ASC
+    </select>
+</mapper>

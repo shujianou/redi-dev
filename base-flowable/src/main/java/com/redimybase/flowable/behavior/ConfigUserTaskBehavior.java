@@ -1,5 +1,6 @@
 package com.redimybase.flowable.behavior;
 
+import com.aispread.manager.security.service.UserRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.redimybase.framework.listener.SpringContextListener;
 import com.redimybase.manager.flowable.entity.FlowDefinitionEntity;
@@ -10,10 +11,7 @@ import com.redimybase.manager.flowable.service.FlowDefinitionService;
 import com.redimybase.manager.flowable.service.FlowNodeService;
 import com.redimybase.manager.flowable.service.FlowUserService;
 import com.redimybase.manager.flowable.service.FlowVarService;
-import com.redimybase.manager.security.entity.UserRoleEntity;
-import com.redimybase.manager.security.service.RoleService;
-import com.redimybase.manager.security.service.UserRoleService;
-import com.redimybase.security.utils.SecurityUtil;
+import com.aispread.manager.security.entity.UserRoleEntity;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.engine.common.impl.el.ExpressionManager;
 import org.flowable.engine.delegate.DelegateExecution;

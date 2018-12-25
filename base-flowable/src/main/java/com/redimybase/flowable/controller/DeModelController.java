@@ -1,6 +1,6 @@
 package com.redimybase.flowable.controller;
 
-import com.redimybase.framework.bean.R;
+import com.redimybase.common.framework.bean.R;
 import com.redimybase.framework.web.TableController;
 import com.redimybase.manager.flowable.entity.DeModelEntity;
 import com.redimybase.manager.flowable.mapper.DeModelMapper;
@@ -8,8 +8,6 @@ import com.redimybase.manager.flowable.service.impl.DeModelServiceImpl;
 import org.flowable.app.domain.editor.Model;
 import org.flowable.app.service.api.ModelService;
 import org.flowable.engine.RepositoryService;
-import org.flowable.engine.repository.Deployment;
-import org.flowable.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

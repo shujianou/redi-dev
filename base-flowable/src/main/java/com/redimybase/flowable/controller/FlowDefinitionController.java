@@ -1,12 +1,12 @@
 package com.redimybase.flowable.controller;
 
 import com.redimybase.flowable.cmd.SyncFlowCmd;
-import com.redimybase.framework.bean.R;
+import com.redimybase.common.framework.bean.R;
 import com.redimybase.framework.web.TableController;
 import com.redimybase.manager.flowable.entity.FlowDefinitionEntity;
 import com.redimybase.manager.flowable.mapper.FlowDefinitionMapper;
 import com.redimybase.manager.flowable.service.impl.FlowDefinitionServiceImpl;
-import com.redimybase.security.utils.SecurityUtil;
+import com.redimybase.security.shiro.utils.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.engine.ManagementService;
 import org.flowable.engine.RepositoryService;

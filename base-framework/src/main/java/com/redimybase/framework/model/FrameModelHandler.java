@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Irany 2018/6/1 17:44
  */
 @Component
-@PropertySource(value = {"classpath:application-framework.properties"},encoding="utf-8")
+@PropertySource(value = {"classpath:application.yml"},encoding="utf-8")
 public class FrameModelHandler extends AbstractFrameModelHandler {
 
     @Override

@@ -2,7 +2,7 @@ package com.redimybase.flowable.controller;
 
 import com.redimybase.flowable.controller.dto.ProcessDefinitionDTO;
 import com.redimybase.flowable.controller.dto.ProcessInstanceDTO;
-import com.redimybase.framework.bean.R;
+import com.redimybase.common.framework.bean.R;
 import com.redimybase.framework.exception.BusinessException;
 import org.flowable.engine.*;
 import org.flowable.engine.repository.ProcessDefinition;

@@ -11,14 +11,13 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -29,6 +28,8 @@ import java.util.Properties;
 //@MapperScan({"com.redimybase.manager.*.mapper","com.aispread.manager.*.mapper"})
 public class MybatisPlusConfig {
 
+    @Value("${redi.modelerEnable}")
+    public boolean modelerEnable;
     /**
      * 分页插件，自动识别数据库类型
      * 多租户，请参考官网【插件扩展】
@@ -62,9 +63,14 @@ public class MybatisPlusConfig {
     }
 
     //@Bean
-    public Resource[] mapperResources() throws IOException {
-        return ArrayUtils.addAll(new PathMatchingResourcePatternResolver()
-                .getResources("classpath*:com/**/mapper/xml/*Mapper.xml"), new PathMatchingResourcePatternResolver().getResources("META-INF/modeler-mybatis-mappings/*.xml"));
+    private Resource[] mapperResources() throws IOException {
+        if (modelerEnable) {
+            return ArrayUtils.addAll(new PathMatchingResourcePatternResolver()
+                    .getResources("classpath*:com/**/mapper/xml/*Mapper.xml"), new PathMatchingResourcePatternResolver().getResources("META-INF/modeler-mybatis-mappings/*.xml"));
+        }else{
+            return ArrayUtils.addAll(new PathMatchingResourcePatternResolver()
+                    .getResources("classpath*:com/**/mapper/xml/*Mapper.xml"));
+        }
     }
 
     @Bean

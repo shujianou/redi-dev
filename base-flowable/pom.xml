@@ -21,10 +21,10 @@
         </dependency>
 
         <!--流程设计器-->
-    <!--    <dependency>
-            <groupId>org.flowable</groupId>
-            <artifactId>flowable-ui-modeler-rest</artifactId>
-        </dependency>-->
+        <!--    <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-ui-modeler-rest</artifactId>
+            </dependency>-->
         <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-ui-modeler-logic</artifactId>
@@ -36,10 +36,11 @@
 
 
         <!--路由配置-->
-       <!-- <dependency>
-            <groupId>org.flowable</groupId>
-            <artifactId>flowable-ui-modeler-conf</artifactId>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.flowable</groupId>
+             <artifactId>flowable-ui-modeler-conf</artifactId>
+         </dependency>-->
+        <!--redimybase-->
         <dependency>
             <groupId>com.redimybase</groupId>
             <artifactId>base-framework</artifactId>
@@ -48,6 +49,13 @@
             <groupId>com.redimybase</groupId>
             <artifactId>base-security</artifactId>
         </dependency>
+        <!--redimybase-->
+        <!--aispread-->
+        <dependency>
+            <groupId>com.aispread.manager.security</groupId>
+            <artifactId>security-manager-impl</artifactId>
+        </dependency>
+        <!--aispread-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>

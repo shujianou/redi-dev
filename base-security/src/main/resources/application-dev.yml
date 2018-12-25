@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: base-security
+  #数据库配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/redi_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: irany
+    db-name: redimybase
+    filters: log4j,wall,mergeStat
+
+
+server:
+  port: 8091
+#eureka生产者配置
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://redi:vim@localhost:8016/eureka
+    registry-fetch-interval-seconds: 10
+#jedis配置
+jedis:
+  host: 127.0.0.1
+  port: 6379
+  password: irany
+  timeout: 100000
+redi:
+  #是否允许使用手机登录
+  usePhone: 0
+  #是否使用验证码
+  useCaptcha: 0
+  #是否允许用邮箱登录
+  useEmail: 0
+  #是否允许使用账号登录
+  useAccount: 1
+  #密码是否加盐
+  pwd:
+    useSalt: 1
+  rememberMeCookie:
+    maxAge: 30
+  #是否使用流程设计器
+  modelerEnable: false
+
+base:
+  muti-datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    default-data-source-name: redimybase
+    username: root
+    password: irany
+  muti-datasource-open: false

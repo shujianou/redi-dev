@@ -1,6 +1,6 @@
 package com.redimybase.flowable.controller;
 
-import com.redimybase.framework.bean.R;
+import com.redimybase.common.framework.bean.R;
 import com.redimybase.framework.web.TableController;
 import com.redimybase.manager.flowable.entity.FlowFormEntity;
 import com.redimybase.manager.flowable.mapper.FlowFormMapper;

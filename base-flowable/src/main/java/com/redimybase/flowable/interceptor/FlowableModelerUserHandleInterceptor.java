@@ -1,7 +1,7 @@
 package com.redimybase.flowable.interceptor;
 
-import com.redimybase.manager.security.entity.UserEntity;
-import com.redimybase.security.utils.SecurityUtil;
+import com.aispread.manager.security.entity.UserEntity;
+import com.redimybase.security.shiro.utils.SecurityUtil;
 import org.flowable.app.security.SecurityUtils;
 import org.flowable.idm.api.User;
 import org.flowable.idm.engine.impl.persistence.entity.UserEntityImpl;

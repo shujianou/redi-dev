@@ -1,0 +1,17 @@
+server:
+  port: 8016
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: redi
+      password: vim
+
+eureka:
+  client:
+    serviceUrl:
+      ## 注册中心eureka地址
+      defaultZone: http://localhost:8016/eureka
+    fetch-registry: false
+    register-with-eureka: false

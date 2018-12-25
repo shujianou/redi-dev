@@ -16,7 +16,7 @@ public class GeneratorTest {
 
     @Test
     public void generateCode() {
-        String packageName = "com.redimybase.manager.security";      //包路径
+        String packageName = "com.aispread.manager.security";      //包路径
         boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
         generateByTables(false, "t_", packageName,
                 "t_org","t_user_org");
