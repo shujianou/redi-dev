@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.redimybase.manager.logger.mapper.SysLogMapper">
+
+    <select id="selectLogList" resultType="com.redimybase.manager.logger.entity.SysLogEntity">
+		select METHOD,OPERATION,TYPE from sys_log order by CREATE_TIME DESC limit 0,19
+	</select>
+	<select id="countByCreateTime" resultType="com.redimybase.manager.logger.dto.SysLogCountDTO" parameterType="string">
+		 select  to_char(create_time, 'HH24h' ) as timeSlot,  count(id)  as  count from  sys_log
+  where
+  <if test="type!=null">
+	  type=#{type,jdbcType=VARCHAR} and
+  </if>
+  create_time  between  CURRENT_DATE  and  CURRENT_TIMESTAMP  group by timeSlot  order  by timeSlot
+	</select>
+
+</mapper>

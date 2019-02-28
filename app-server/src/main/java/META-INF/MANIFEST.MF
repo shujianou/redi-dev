@@ -1,0 +1,90 @@
+Manifest-Version: 1.0
+Class-Path: spring-security-web-5.0.8.RELEASE.jar error_prone_annotati
+ ons-2.0.18.jar concurrentlinkedhashmap-lru-1.2_jdk5.jar shiro-web-1.4
+ .0.jar spring-jcl-5.0.7.RELEASE.jar shiro-core-1.4.0.jar kotlin-stdli
+ b-1.3.11.jar flowable-cmmn-engine-configurator-6.3.0.jar classmate-1.
+ 3.4.jar flowable-dmn-model-6.3.0.jar shiro-lang-1.4.0.jar spring-cont
+ ext-5.0.7.RELEASE.jar java-sizeof-0.0.4.jar HikariCP-2.7.9.jar fastjs
+ on-1.2.47.jar j2objc-annotations-1.1.jar flowable-spring-boot-starter
+ -cmmn-6.3.0.jar flowable-dmn-api-6.3.0.jar flowable-cmmn-converter-6.
+ 3.0.jar emoji-java-4.0.0.jar log4j-1.2.17.jar flowable-dmn-spring-6.3
+ .0.jar flowable-job-spring-service-6.3.0.jar shiro-cache-1.4.0.jar fl
+ owable-cmmn-spring-configurator-6.3.0.jar hamcrest-core-1.3.jar sprin
+ g-boot-starter-web-2.0.5.RELEASE.jar spring-boot-starter-json-2.0.5.R
+ ELEASE.jar flowable-form-engine-6.3.0.jar flowable-task-service-api-6
+ .3.0.jar spring-aop-5.0.7.RELEASE.jar commons-email-1.5.jar flowable-
+ cmmn-api-6.3.0.jar shiro-config-core-1.4.0.jar tomcat-embed-el-8.5.33
+ .jar flowable-bpmn-layout-6.3.0.jar spring-security-core-5.0.8.RELEAS
+ E.jar jackson-module-parameter-names-2.9.6.jar flowable-spring-6.3.0.
+ jar commons-io-2.6.jar jboss-logging-3.3.2.Final.jar shiro-crypto-has
+ h-1.4.0.jar flowable-content-spring-configurator-6.3.0.jar shiro-cryp
+ to-core-1.4.0.jar jackson-datatype-json-org-2.9.6.jar shiro-config-og
+ dl-1.4.0.jar flowable-ui-common-6.3.0.jar flowable-idm-spring-6.3.0.j
+ ar spring-beans-5.0.7.RELEASE.jar flowable-dmn-engine-configurator-6.
+ 3.0.jar flowable-content-engine-configurator-6.3.0.jar logback-classi
+ c-1.2.3.jar jul-to-slf4j-1.7.25.jar flowable-process-validation-6.3.0
+ .jar mybatis-spring-1.3.1.jar flowable-idm-engine-6.3.0.jar spring-bo
+ ot-autoconfigure-2.0.5.RELEASE.jar spring-core-5.0.7.RELEASE.jar slf4
+ j-api-1.7.25.jar spring-boot-starter-websocket-2.0.5.RELEASE.jar jack
+ son-datatype-jdk8-2.9.6.jar flowable-dmn-spring-configurator-6.3.0.ja
+ r h2-1.4.197.jar logback-core-1.2.3.jar flowable-bpmn-model-6.3.0.jar
+  aspectjweaver-1.8.13.jar mybatis-3.4.6.jar tomcat-embed-websocket-8.
+ 5.33.jar joda-time-2.9.9.jar ognl-3.1.2.jar paranamer-2.7.jar javassi
+ st-3.11.0.GA.jar flowable-job-service-api-6.3.0.jar mybatis-plus-boot
+ -starter-3.0.3.jar mybatis-plus-annotation-3.0.3.jar commons-logging-
+ 1.2.jar kotlin-stdlib-common-1.3.11.jar jackson-datatype-joda-2.9.6.j
+ ar jackson-datatype-hppc-2.9.6.jar antlr-2.7.7.jar mysql-connector-ja
+ va-5.1.46.jar flowable-cmmn-image-generator-6.3.0.jar spring-oxm-5.0.
+ 7.RELEASE.jar flowable-form-json-converter-6.3.0.jar tomcat-embed-cor
+ e-8.5.33.jar jackson-datatype-jsr310-2.9.6.jar jedis-2.9.0.jar flowab
+ le-spring-common-6.3.0.jar flowable-content-spring-6.3.0.jar commons-
+ lang3-3.7.jar flowable-dmn-json-converter-6.3.0.jar guava-23.0.jar fl
+ owable-cmmn-engine-6.3.0.jar flowable-spring-boot-starter-dmn-6.3.0.j
+ ar httpclient-4.5.3.jar shiro-event-1.4.0.jar flowable-form-engine-co
+ nfigurator-6.3.0.jar jsr305-1.3.9.jar spring-websocket-5.0.7.RELEASE.
+ jar servlet-api-2.5.jar mybatis-ehcache-1.0.0.jar flowable-dmn-xml-co
+ nverter-6.3.0.jar spring-data-redis-2.0.7.RELEASE.jar spring-expressi
+ on-5.0.7.RELEASE.jar orika-core-1.4.6.jar commons-codec-1.11.jar java
+ x.annotation-api-1.3.2.jar log4j-to-slf4j-2.10.0.jar flowable-json-co
+ nverter-6.3.0.jar flowable-ui-modeler-logic-6.3.0.jar Saxon-HE-9.8.0-
+ 4.jar flowable-engine-common-api-6.3.0.jar hppc-0.7.1.jar spring-orm-
+ 5.0.7.RELEASE.jar flowable-variable-service-6.3.0.jar mybatis-plus-co
+ re-3.0.3.jar spring-context-support-5.0.7.RELEASE.jar validation-api-
+ 2.0.1.Final.jar mybatis-plus-extension-3.0.3.jar ehcache-core-2.0.0.j
+ ar spring-jdbc-5.0.7.RELEASE.jar groovy-all-2.4.15.jar mybatis-plus-g
+ enerator-3.0.3.jar spring-data-commons-2.0.7.RELEASE.jar shiro-redis-
+ 3.1.0.jar jgraphx-1.10.4.1.jar spring-boot-configuration-processor-2.
+ 0.5.RELEASE.jar javassist-3.22.0-GA.jar flowable-dmn-engine-6.3.0.jar
+  flowable-bpmn-converter-6.3.0.jar jackson-annotations-2.9.0.jar shir
+ o-spring-1.4.0.jar spring-boot-starter-tomcat-2.0.5.RELEASE.jar flowa
+ ble-spring-boot-starter-6.3.0.jar hibernate-validator-6.0.12.Final.ja
+ r liquibase-core-3.5.5.jar flowable-form-model-6.3.0.jar mybatis-plus
+ -3.0.3.jar jcl-over-slf4j-1.7.25.jar javax.mail-1.6.2.jar spring-mess
+ aging-5.0.7.RELEASE.jar flowable-content-engine-6.3.0.jar log4j-api-2
+ .10.0.jar flowable-image-generator-6.3.0.jar spring-data-keyvalue-2.0
+ .10.RELEASE.jar json-20170516.jar junit-4.12.jar checkstyle-8.3.jar s
+ nakeyaml-1.19.jar flowable-content-api-6.3.0.jar druid-1.1.9.jar flow
+ able-engine-6.3.0.jar kotlin-stdlib-jdk8-1.3.11.jar spring-aspects-5.
+ 0.7.RELEASE.jar flowable-task-service-6.3.0.jar flowable-identitylink
+ -service-6.3.0.jar commons-cli-1.4.jar spring-web-5.0.7.RELEASE.jar f
+ lowable-spring-boot-starter-process-6.3.0.jar flowable-idm-api-6.3.0.
+ jar jackson-databind-2.9.6.jar slf4j-log4j12-1.7.25.jar flowable-form
+ -api-6.3.0.jar spring-boot-starter-logging-2.0.5.RELEASE.jar spring-b
+ oot-starter-2.0.5.RELEASE.jar commons-pool2-2.5.0.jar spring-security
+ -config-5.0.8.RELEASE.jar java-uuid-generator-3.1.3.jar lombok-1.16.2
+ 0.jar flowable-engine-common-6.3.0.jar annotations-13.0.jar spring-se
+ curity-crypto-5.0.8.RELEASE.jar flowable-cmmn-spring-6.3.0.jar spring
+ -tx-5.0.7.RELEASE.jar shiro-ehcache-1.4.0.jar flowable-cmmn-model-6.3
+ .0.jar flowable-form-spring-configurator-6.3.0.jar antlr4-runtime-4.7
+ .jar commons-collections-3.2.2.jar httpcore-4.4.10.jar flowable-job-s
+ ervice-6.3.0.jar commons-beanutils-1.9.3.jar spring-boot-starter-jdbc
+ -2.0.5.RELEASE.jar spring-boot-2.0.5.RELEASE.jar flowable-cmmn-json-c
+ onverter-6.3.0.jar flowable-spring-boot-autoconfigure-6.3.0.jar jsqlp
+ arser-1.2.jar spring-webmvc-5.0.7.RELEASE.jar flowable-variable-servi
+ ce-api-6.3.0.jar commons-fileupload-1.3.1.jar shiro-crypto-cipher-1.4
+ .0.jar kotlin-stdlib-jdk7-1.3.11.jar jackson-core-2.9.6.jar flowable-
+ identitylink-service-api-6.3.0.jar animal-sniffer-annotations-1.14.ja
+ r activation-1.1.jar httpmime-4.5.3.jar flowable-form-spring-6.3.0.ja
+ r
+Main-Class: com.wwdj.admin.AdminApplication
+

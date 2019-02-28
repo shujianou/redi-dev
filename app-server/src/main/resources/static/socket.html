@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>socket test</title>
+</head>
+<body>
+
+</body>
+
+<script>
+    var webSocket;
+    if (window.WebSocket)
+    {
+        webSocket = new WebSocket("ws://localhost:8093/websocket/1");
+
+        //连通之后的回调事件
+        webSocket.onopen = function()
+        {
+            webSocket.send("发送数据");
+        };
+
+        //接收后台服务端的消息
+        webSocket.onmessage = function (evt)
+        {
+            var received_msg = evt.data;
+            alert("数据已接收:" + received_msg);
+        };
+
+        //连接关闭的回调事件
+        webSocket.onclose = function()
+        {
+            alert("连接已关闭...");
+        };
+    }
+
+</script>
+</html>

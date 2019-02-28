@@ -14,22 +14,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.6.RELEASE</version>
+        <version>2.0.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <modules>
-        <module>base-security</module>
-        <module>base-common</module>
-        <module>base-framework</module>
+        <module>redidev-security</module>
+        <module>redidev-common</module>
+        <module>redidev-framework</module>
         <module>base-generator</module>
-        <module>admin</module>
-        <module>base-flowable</module>
-        <module>eureka</module>
-        <module>service-module</module>
-        <module>service-api</module>
-        <module>service-manager</module>
-        <module>manager</module>
+        <module>app-manager</module>
+        <module>app-server</module>
     </modules>
 
     <!-- 设定仓库,按设定顺序进行查找. -->
@@ -47,10 +42,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
+        <maven.resources.plugin.version>2.7</maven.resources.plugin.version>
 
         <!-- framework -->
         <redimybase.framework.version>1.0-SNAPSHOT</redimybase.framework.version>
-        <aispread.version>1.0-SNAPSHOT</aispread.version>
 
         <!-- db -->
         <mysql.version>5.1.35</mysql.version>
@@ -107,60 +102,44 @@
         <mybatis-plus.version>3.0.3</mybatis-plus.version>
         <flowable.version>6.3.0</flowable.version>
         <guava.version>23.0</guava.version>
-        <spring-cloud.eureka.version>1.4.5.RELEASE</spring-cloud.eureka.version>
-        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
-        <jackson.version>2.9.4</jackson.version>
-        <jjwt.version>0.9.0</jjwt.version>
+        <swagger.version>2.9.2</swagger.version>
+        <druid.spring.version>1.1.10</druid.spring.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+
             <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>${disruptor.version}</version>
             </dependency>
-            <!--flowable流程引擎-->
+            <!--<dependency>-->
+            <!--<groupId>com.alipay.sofa</groupId>-->
+            <!--<artifactId>sofa-rpc-all</artifactId>-->
+            <!--<version>${sofa.rpc.version}</version>-->
+            <!--</dependency>-->
+
             <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-ui-modeler-rest</artifactId>
-                <version>${flowable.version}</version>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>5.2.4</version>
             </dependency>
+
             <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-ui-modeler-logic</artifactId>
-                <version>${flowable.version}</version>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.197</version>
+                <scope>test</scope>
             </dependency>
+
             <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-json-converter</artifactId>
-                <version>${flowable.version}</version>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>3.1.0</version>
             </dependency>
-            <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-engine-common</artifactId>
-                <version>${flowable.version}</version>
-            </dependency>
-            <!--<dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-ui-modeler-conf</artifactId>
-                <version>${flowable.version}</version>
-            </dependency>-->
-            <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-spring-boot-starter</artifactId>
-                <version>${flowable.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.flowable</groupId>
-                <artifactId>flowable-spring-boot-starter-basic</artifactId>
-                <version>${flowable.version}</version>
-            </dependency>
-            <!-- <dependency>
-                 <groupId>com.lmax</groupId>
-                 <artifactId>disruptor</artifactId>
-                 <version>${disruptor.version}</version>
-             </dependency>-->
+
             <dependency>
                 <groupId>ognl</groupId>
                 <artifactId>ognl</artifactId>
@@ -187,24 +166,18 @@
                 <artifactId>javassist</artifactId>
                 <version>${javassist.version}</version>
             </dependency>
-            <!--spring-->
+            <!--<dependency>-->
+            <!--<groupId>org.fusesource</groupId>-->
+            <!--<artifactId>sigar</artifactId>-->
+            <!--<version>${sigar.version}</version>-->
+            <!--</dependency>-->
             <!--spring-->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>2.0.7.RELEASE</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-feign</artifactId>
-                <version>${spring-cloud.eureka.version}</version>
-            </dependency>
-            <!--  <dependency>
-               <groupId>org.springframework.cloud</groupId>
-               <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-           </dependency>-->
+            <!--spring-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
@@ -250,6 +223,11 @@
                 <artifactId>spring-context-support</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>2.0.7.RELEASE</version>
+            </dependency>
             <!--spring-->
             <!--spring-->
             <!--shiro-->
@@ -279,11 +257,11 @@
                 <artifactId>jsch</artifactId>
                 <version>${jsch.version}</version>
             </dependency>
-            <!--<dependency>
-                <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-actor_2.12</artifactId>
-                <version>${akka.version}</version>
-            </dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>com.typesafe.akka</groupId>-->
+            <!--<artifactId>akka-actor_2.12</artifactId>-->
+            <!--<version>${akka.version}</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -333,19 +311,8 @@
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.quartz-scheduler</groupId>
@@ -358,60 +325,32 @@
                 <version>${postgresql.version}</version>
             </dependency>
 
-            <!--aispread-->
-            <dependency>
-                <groupId>com.aispread.service.api.security</groupId>
-                <artifactId>security-api</artifactId>
-                <version>${aispread.version}</version>
-            </dependency>
-            <!--aispread-->
             <!--redimybase-->
             <dependency>
                 <groupId>com.redimybase</groupId>
-                <artifactId>base-flowable</artifactId>
+                <artifactId>redidev-security</artifactId>
                 <version>${redimybase.framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.redimybase</groupId>
-                <artifactId>base-security</artifactId>
+                <artifactId>app-manager</artifactId>
                 <version>${redimybase.framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.redimybase</groupId>
-                <artifactId>manager</artifactId>
-                <version>${redimybase.framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.redimybase</groupId>
-                <artifactId>base-framework</artifactId>
+                <artifactId>redidev-framework</artifactId>
                 <version>${redimybase.framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.redimybase.common</groupId>
-                <artifactId>base-common</artifactId>
+                <artifactId>redidev-common</artifactId>
                 <version>${redimybase.framework.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-servlet-api</artifactId>
-                <version>${tomcat.servlet.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.redimybase.module.service</groupId>
-                <artifactId>security-service</artifactId>
-                <version>${redimybase.framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.aispread.manager.security.entity</groupId>
-                <artifactId>security-manager-entity</artifactId>
-                <version>${redimybase.framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.aispread.manager.security</groupId>
-                <artifactId>security-manager-impl</artifactId>
-                <version>${redimybase.framework.version}</version>
-            </dependency>
-            <!--redimybase-->
+            <!--   <dependency>
+                   <groupId>org.apache.tomcat</groupId>
+                   <artifactId>tomcat-servlet-api</artifactId>
+                   <version>${tomcat.servlet.version}</version>
+               </dependency>-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -422,17 +361,23 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
 
     <build>
-        <finalName>redimybase</finalName>
+        <finalName>wawadaojia</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -458,9 +403,24 @@
                     <include>**/*.xml</include>
                 </includes>
             </resource>
-            <!--指定资源的位置-->
+            <resource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/**/*.xml</include>
+                    <include>**/**/*.properties</include>
+                    <include>**/**/*.yml</include>
+                    <include>**/**/*.txt</include>
+                </includes>
+                <targetPath>test-classes</targetPath>
+            </resource>
             <resource>
                 <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/**/*.xml</include>
+                    <include>**/**/*.properties</include>
+                    <include>**/**/*.yml</include>
+                    <include>**/**/*.txt</include>
+                </includes>
             </resource>
         </resources>
     </build>

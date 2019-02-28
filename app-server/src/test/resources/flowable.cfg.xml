@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource"
+          class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/redi_db?useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+        <!-- -->
+    </bean>
+    <!--idm流程引擎配置类的使用 -->
+    <bean id="processEngineConfiguration"
+          class="org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+        <property name="databaseSchemaUpdate" value="false"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--表单引擎配置类-->
+    <bean id="formEngineConfiguration"
+
+          class="org.flowable.form.engine.impl.cfg.StandaloneFormEngineConfiguration">
+
+        <property name="jdbcUrl"
+
+                  value="jdbc:mysql://127.0.0.1:3306/redi_db?useUnicode=true&amp;characterEncoding=UTF-8"/>
+
+        <property name="jdbcDriver" value="com.mysql.jdbc.Driver"/>
+
+        <property name="jdbcUsername" value="root"/>
+
+        <property name="jdbcPassword" value="1234"/>
+
+    </bean>
+</beans>

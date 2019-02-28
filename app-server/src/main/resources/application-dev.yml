@@ -1,0 +1,55 @@
+server:
+  port: 8095
+
+spring:
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure #过滤druid自动配置
+  redis:
+    host: localhost
+    password: irany
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: 10000
+        max-idle: 8
+        min-idle: 5
+    timeout: 10000
+  datasource:
+    username: wwdj_dev_db
+    password: Hellokitty666
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://60.205.180.202:3306/wwdj_dev_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  flyway:
+    enabled: true
+  application:
+    name: @name@
+
+redi:
+  useCaptcha: 0
+  usePhone: 1
+  useEmail: 1
+  useAccount: 1
+  idNo: 1
+  pwd:
+    useSalt: 1
+    salt: wwdj_app
+  rememberMeCookie:
+    maxAge: 86400
+  default:
+    init:
+      password: 123456
+  file:
+    save:
+      path: E:/mini_files/
+
+
+
+#flowable流程配置
+flowable:
+  check-process-definitions: true #是否检查流程定义更新
+  common:
+    app:
+      idm-url: a
+
+

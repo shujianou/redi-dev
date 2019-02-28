@@ -1,5 +1,8 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+/target/*
+/base-flowable/target/
+/base-generator/target/
 
 ### STS ###
 .apt_generated
@@ -15,7 +18,7 @@
 *.iws
 *.iml
 *.ipr
-
+*.class
 ### NetBeans ###
 /nbproject/private/
 /build/
